@@ -27,6 +27,14 @@ class UsersController extends BaseController {
 	}
 	public function postSignin() {
 		if (Auth::attempt(array('email'=>Input::get('email'), 'password'=>Input::get('password')))) {
+			//let's track our user's so we know what they are up to :)
+			$userTracker = new UserTracker;
+			$userTracker->firstname = Auth::user()->firstname;
+			$userTracker->lastname = Auth::user()->lastname;
+			$userTracker->email = Auth::user()->email;
+			$userTracker->ipaddress = Request::getClientIp();
+			$userTracker->save();
+
 			return Redirect::to('users/dashboard')->with('message', 'You are now logged in!');
 		} else {
 			return Redirect::to('users/login')

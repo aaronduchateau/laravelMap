@@ -11,7 +11,7 @@ window.gmd = {
 			window.map.panTo(jacksonCounty);
 		},
 		nestedMap: function(customAccount){
-			//window.nestedMap.setMap(null);
+
 			var jacksonCounty = new google.maps.LatLng(window.infoWindowLat, window.infoWindowLng);
 			var mapOptions = {
 				center: jacksonCounty,
@@ -42,6 +42,7 @@ window.gmd = {
 		  });
 
 		  layer.setMap(window.nestedMap);
+		  google.maps.event.trigger(window.nestedMap, 'resize');
 		
 
 		}

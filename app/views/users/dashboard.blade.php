@@ -154,6 +154,8 @@
     </div>
   </div>
 </div>
+<!--include this on every page-->
+<input type="hidden" id="client-email-holder" value="{{Auth::user()->email}}">
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -197,7 +199,7 @@
     window.g.triPageSetup();
     
     //load global template and populate top menu
-    window.g.populateTopMenu({dash:' active', profile:'', transactions:'', help:''});
+    window.g.populateTopMenu({dash:' active', profile:'', transactions:'', help:'', emailHeld: $('#client-email-holder').val()});
     
     //load dash specific template
     var rightDashTemplate;
@@ -248,6 +250,9 @@
 
     $(document).on('click', '.left-open', function(event) {
         //$(".container-dash").css('left','0px');
+        //if (window.nestedMap){
+          //window.nestedMap.setMap(null);
+        //}
         $('#config').hide();
         $('.back').show();
         $('.back-right').hide()

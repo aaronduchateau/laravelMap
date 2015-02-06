@@ -137,7 +137,7 @@
             				<br/>
             				<h5>
 	            				<span class="label label-primary darker-blue-backgroud-class">
-	            					{{emptyCheck FEEOWNER.value}} / {{emptyCheck INCAREOF.value}}
+	            					${{emptyCheck FEEOWNER.value}} / ${{emptyCheck INCAREOF.value}}
 	            				</span>	
             				</h5>
             			</div>
@@ -148,7 +148,7 @@
             				<br/>
             				<h5>
             					<span class="label label-primary darker-blue-backgroud-class">
-            						{{emptyCheck LANDVALUE.value}} / {{emptyCheck IMPVALUE.value}}
+            						{{formatCurrency LANDVALUE.value}} / {{formatCurrency IMPVALUE.value}}
         						</span>
     						</h5>
     					</div>
@@ -232,13 +232,16 @@
 </script>
 <script type="text/javascript">
 Handlebars.registerHelper('emptyCheck', function(passedString) {
-    var theString = passedString ? passedString : "N/A"; 
+    var theString = passedString ? passedString : "Empty"; 
     return new Handlebars.SafeString(theString)
 });
 Handlebars.registerHelper("last", function(arrayPassed) {
 	if (arrayPassed){	
   		return arrayPassed[arrayPassed.length-1];
 	}
+});
+Handlebars.registerHelper('formatCurrency', function(value) {
+    return value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
 });
 </script>
 	    	
