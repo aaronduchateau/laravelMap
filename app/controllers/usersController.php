@@ -35,7 +35,7 @@ class UsersController extends BaseController {
 			$userTracker->ipaddress = Request::getClientIp();
 			$userTracker->save();
 
-			return Redirect::to('users/dashboard')->with('message', 'You are now logged in!');
+			return Redirect::to('users/menu')->with('message', 'You are now logged in!');
 		} else {
 			return Redirect::to('users/login')
 				->with('message', 'Your username/password combination was incorrect')
@@ -44,6 +44,10 @@ class UsersController extends BaseController {
 	}
 	public function getDashboard() {
 		$this->layout->content = View::make('users.dashboard');
+	}
+	public function getMenu() {
+		$usStates = UsStates::all();
+		$this->layout->content = View::make('users.menu')->with('usStates', $usStates);
 	}
 	public function getLogout() {
 		Auth::logout();

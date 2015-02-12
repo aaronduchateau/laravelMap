@@ -69,6 +69,58 @@ window.g = {
 	    $('.left-action-buttons').css("width", halfWidth + "px");
 
 	},
+	twoLeftPageSetup: function(){
+
+		var windowHeight = this.windowHeight();
+		var adjustedWindowHeight = this.adjustedWindowHeight();
+		var windowWidth = this.windowWidth();
+		var oneQuarterWidth = this.oneQuarterWidth();
+		var halfWidth = this.halfWidth();
+		var windowLargeWidth = this.windowLargeWidth();
+
+		$("#body-dash").css("overflow-x", "hidden"); 
+	    $(".container-dash").css('min-width', windowWidth + 'px');
+	    $(".container-dash").css('position','absolute');
+	    $(".container-dash").css('top', '98px');
+	    $(".container-dash").css('left', '0px');
+
+	    $(".options-area").css("width", windowWidth + "px");
+	    $(".options-area").css('position','absolute');
+	    $(".options-area").css('top', '60px');
+
+	    $(".menu-left-list-1").css("width", oneQuarterWidth + "px");
+	    $(".menu-left-list-2").css("width", oneQuarterWidth + "px");
+	    $(".dash-center").css("width", halfWidth + "px");
+
+	    $(".menu-left-list-1").css("height", adjustedWindowHeight + "px");
+	    $(".menu-left-list-2").css("height", adjustedWindowHeight + "px");
+	    $(".dash-center").css("height", adjustedWindowHeight + "px");
+	    $(".dash-center-top-container").css("height", (adjustedWindowHeight - 150) + "px");
+
+	    //absolute positioning for elements
+	    $(".menu-left-list-1").css("position", "absolute");
+	    $(".menu-left-list-1").css("top", "0px");
+	    $(".menu-left-list-1").css("left", "0px");
+
+	    $(".menu-left-list-2").css("position", "absolute");
+	    $(".menu-left-list-2").css("top", "0px");
+	    $(".menu-left-list-2").css("left", oneQuarterWidth + "px");
+
+	    $(".dash-center").css("position", "absolute");
+	    $(".dash-center").css("top", "0px");
+	    $(".dash-center").css("left", halfWidth + "px");
+
+	    $(".dash-center-bottom").css("position", "absolute");
+	    $(".dash-center-bottom").css("top", (adjustedWindowHeight - 150) + "px");
+
+	    $(".dash-center-top-container").css("position", "absolute");
+	    $(".dash-center-top-container").css("top", "0px");
+	    
+
+	    //set width for header
+	    $('.left-action-buttons').css("width", halfWidth + "px");
+
+	},
 	populateTopMenu: function(menuJson){
 		$("#global-template-holder").load( "../assets/jsTemplates/globalTemplate.html", function() {
     		var source = $("#top-menu").html();

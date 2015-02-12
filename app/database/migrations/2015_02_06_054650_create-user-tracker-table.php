@@ -16,7 +16,7 @@ class CreateUserTrackerTable extends Migration {
 			$table->increments('id');
     		$table->string('firstname', 20);
     		$table->string('lastname', 20);
-   			$table->string('email', 100)->unique();
+   			$table->string('email', 100);
     		$table->string('ipaddress', 100);
     		$table->timestamps();
     	});
