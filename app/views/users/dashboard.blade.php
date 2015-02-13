@@ -53,7 +53,7 @@
   </div>
   <div id="map-canvas" class="dash-center" style="">
     <h4 class="white-class" style="width:300px;text-align:center;margin-top:50px;">
-    <img src="../images/loader.gif" style="width:32px;height:32px;">
+    <img src="{{ URL::asset('images/loader.gif') }}" style="width:32px;height:32px;">
     Loading Content...
     </h4>
     <!--map goes here-->
@@ -106,11 +106,6 @@
     </div>
   </div>
 </div>
-<!--load our handlerbars templates into this div-->
-<div id="global-template-holder" style="display:none;">
-</div>  
-<div id="template-holder" style="display:none;">
-</div>  
 
 <div class="modal fade bs-example-modal-lg blue-background" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -147,7 +142,7 @@
           </div>
           <div class="col-md-4">
            <h2 class="custom-text-brand"> MyEyesRemote&#0153;</h2>
-           <img src="../images/logo-small.png" style="margin-left:10px;margin-top:10px;"/>
+           <img src="{{ URL::asset('images/logo-small.png')}}" style="margin-left:10px;margin-top:10px;"/>
           </div>
         </div>
       </div>
@@ -175,6 +170,11 @@
 <script src="{{ URL::asset('dist/scroll/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 <!--$(selector).mCustomScrollbar("scrollTo",position,options);-->
 <!--//http://manos.malihu.gr/jquery-custom-content-scroller/-->
+
+<!--include handlbar templates-->
+@include('handlebarTemplates.dashTemplate')
+@include('handlebarTemplates.globalTemplate')
+
 <script>
   function timeNow() {
     var d = new Date(),
@@ -205,23 +205,23 @@
     var rightDashTemplate;
     var templateResult;
 
-    $("#template-holder").load( "../assets/jsTemplates/avatarDashTemplate.html", function() {
-      //this loads our template for the left pain
-      var source   = $("#dash-left-template").html();
-      var leftDashTemplate = Handlebars.compile(source);
-      templateResult = leftDashTemplate(window.avatar);
-      $('.dash-left-inter-margin').append(templateResult);
+    
+    //this loads our template for the left pain
+    var source   = $("#dash-left-template").html();
+    var leftDashTemplate = Handlebars.compile(source);
+    templateResult = leftDashTemplate(window.avatar);
+    $('.dash-left-inter-margin').append(templateResult);
 
-      //this load our template for the right pain 
-      source = $("#dash-right-template").html();
-      rightDashTemplate = Handlebars.compile(source);
-      templateResult = rightDashTemplate(rightTemplateJson());
-      $('.dash-right-inter-margin').append(templateResult);
-      $('.single-right-item:first').addClass('active-item-right');
+    //this load our template for the right pain 
+    source = $("#dash-right-template").html();
+    rightDashTemplate = Handlebars.compile(source);
+    templateResult = rightDashTemplate(rightTemplateJson());
+    $('.dash-right-inter-margin').append(templateResult);
+    $('.single-right-item:first').addClass('active-item-right');
 
-      //populate the map
-      window.gmd.populateMap( $('#latMap').val(), $('#lngMap').val() );
-    });
+    //populate the map
+    window.gmd.populateMap( $('#latMap').val(), $('#lngMap').val() );
+   
 
     $(window).load(function(){
         

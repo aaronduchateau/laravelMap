@@ -122,13 +122,11 @@ window.g = {
 
 	},
 	populateTopMenu: function(menuJson){
-		$("#global-template-holder").load( "../assets/jsTemplates/globalTemplate.html", function() {
-    		var source = $("#top-menu").html();
-      		var topMenuTemplate = Handlebars.compile(source);
-      		var templateResult = topMenuTemplate(menuJson);
-      		$('#body-dash').prepend(templateResult);
-      		window.g.generalLoaderHtml = $("#general-loader").html();
-    	});
+		var source = $("#top-menu").html();
+  		var topMenuTemplate = Handlebars.compile(source);
+  		var templateResult = topMenuTemplate(menuJson);
+  		$('#body-dash').prepend(templateResult);
+  		window.g.generalLoaderHtml = $("#general-loader").html();
 	},
 	mapRowData: {}
 }	

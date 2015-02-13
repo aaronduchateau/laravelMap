@@ -17,3 +17,16 @@ Route::get('/', function()
 });
 
 Route::controller('users', 'UsersController');
+
+
+
+
+//Ugly looking data routes
+Route::pattern('id', '[0-9]+');
+
+Route::get('listCounties/{id}', function($id)
+{
+    $counties = DB::table('counties')->where('stateId', '=', $id)->get();
+    
+    return json_encode($counties);
+});

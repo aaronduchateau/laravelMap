@@ -49,11 +49,11 @@
     <div class="menu-left-inter-margin-1" >
       @foreach($usStates as $usState)
         <!--start item-->
-          <div class="custom-well-dash-left left-open" data-result-index="{{@index}}">
+          <div class="custom-well-dash-left left-open-1" data-result-index="{{$usState->id}}">
             <table style="margin-left:15px;margin-right:5px;width:95%;">
               <tr>
                 <td style="width:90%;">
-                  <h3 class="heading">{{$usState->name}}</h3>
+                  <h4 class="heading">{{$usState->name}}</h4>
                 </td>
                 <td style="width:10%;">
                 <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true" style="color:white;margin-right:10px;"></span>
@@ -66,7 +66,7 @@
     </div>
   </div>
   <div class="menu-left-list-2" style="background-color:rgba(13,106,146,0.9);">
-    <div class="menu-left-inter-margin-2" style="display:none;">
+    <div class="menu-left-inter-margin-2">
       <!--this is populated using avatarTemplate-->
     </div>
  </div>
@@ -100,11 +100,6 @@
     </div>    
   </div>
 </div>
-<!--load our handlerbars templates into this div-->
-<div id="global-template-holder" style="display:none;">
-</div>  
-<div id="template-holder" style="display:none;">
-</div>  
 
 
 <!--include this on every page-->
@@ -122,12 +117,17 @@
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{{ URL::asset('assets/js/ie10-viewport-bug-workaround.js') }}"></script>
 
-<script src="{{ URL::asset('assets/jsModels/avatarDashboardModel.js') }}"></script>
+<script src="{{ URL::asset('assets/jsModels/menuModel.js') }}"></script>
 <script src="{{ URL::asset('assets/jsControllers/googleMapPopulateScoped.js') }}"></script>
 <script src="{{ URL::asset('assets/jsControllers/globalVars.js') }}"></script>
 <script src="{{ URL::asset('dist/scroll/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 <!--$(selector).mCustomScrollbar("scrollTo",position,options);-->
 <!--//http://manos.malihu.gr/jquery-custom-content-scroller/-->
+
+<!--include handlbar templates-->
+@include('handlebarTemplates.menuTemplate')
+@include('handlebarTemplates.globalTemplate')
+
 <script>
  
   $( document ).ready(function() {
@@ -137,32 +137,41 @@
     //load global template and populate top menu
     window.g.populateTopMenu({menu:' active', dash:'', profile:'', transactions:'', help:'', emailHeld: $('#client-email-holder').val()});
     
-    //load dash specific template
-    var rightDashTemplate;
-    var templateResult;
 
     $(".menu-left-list-1").mCustomScrollbar({
         theme:"minimal"
     });
+
+
+    function highlightLastItem(className, event){
+        $( className ).each(function() {
+            $( this ).removeClass('active-item-right');
+        });
+        $(event.target).closest( className ).addClass('active-item-right');
+    }
+
+    var populateSecondMenu = function (data){ 
+     
+        //this loads our template for the second left pain
+        var source = $("#menu-left-2-template").html();
+        var leftDashTemplate = Handlebars.compile(source);
+        templateResult = leftDashTemplate({menu: data});
+        $('.menu-left-inter-margin-2').html(templateResult);
+
+    }
     
-    /*
-    $("#template-holder").load( "../assets/jsTemplates/avatarDashTemplate.html", function() {
-      //this loads our template for the left pain
-      var source   = $("#dash-left-template").html();
-      var leftDashTemplate = Handlebars.compile(source);
-      templateResult = leftDashTemplate(window.avatar);
-      $('.dash-left-inter-margin').append(templateResult);
-
-      //this load our template for the right pain 
-      source = $("#dash-right-template").html();
-      rightDashTemplate = Handlebars.compile(source);
-      templateResult = rightDashTemplate(rightTemplateJson());
-      $('.dash-right-inter-margin').append(templateResult);
-      $('.single-right-item:first').addClass('active-item-right');
-
-      //populate the map
-      window.gmd.populateMap( $('#latMap').val(), $('#lngMap').val() );
+    //populate second from left menu bar
+    $(document).on('click', '.left-open-1', function(event) {
+        var indexTracker = $(event.target).closest('div').attr('data-result-index');
+        //highlight the last clicked item
+        highlightLastItem('.left-open-1', event);
+        //call model provide index and callback
+        window.menu.fetchCounties(indexTracker, populateSecondMenu);
     });
+    
+
+
+    /*
 
     $(window).load(function(){
         
@@ -188,6 +197,8 @@
         prepend : "<h2>Avatar RFP - MyEyesRemote.com</h2>" // Add this at bottom
       });
     });
+
+    fetchCounties
 
     $(document).on('click', '.left-open', function(event) {
         //$(".container-dash").css('left','0px');

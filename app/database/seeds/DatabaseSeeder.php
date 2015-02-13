@@ -13,13 +13,38 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call('UsStateSeeder');
 		$this->command->info('Us States seeded!');
+
+		$this->call('countySeeder');
+		$this->command->info('counties seeded!');
 	}
+}
+
+
+class countySeeder extends Seeder {
+
+    public function run()
+    {	
+    	//DB::table('counties')->delete();
+    	
+    	//Counties::create(array());
+        
+        DB::table('counties')->insert(
+        array(
+            array('countyName' => 'Lane County', 'stateId' => '38', 'remoteTableId' => '1QD4JANRJFJ2_G4pWypW4ofQO0ShK0iHtKPEciTt1', 'nestedMapColumnName' => 'ACCOUNT', 'active' => 'true'),
+      		array('countyName' => 'Jackson County', 'stateId' => '38', 'remoteTableId' => '1w27IrwI0eK0nr9_dXm70L56EnzGpb6t_4HC1XZ_a', 'nestedMapColumnName' => 'ACCOUNT', 'active' => 'true')
+		));
+    }
+
 }
 
 class UsStateSeeder extends Seeder {
 
     public function run()
     {
+    	//DB::table('usStates')->delete();
+    	
+    	//UsStates::create(array());
+
         DB::table('usStates')->insert(
         array(
             array('name' => 'Alabama', 'code' => 'AL'),
