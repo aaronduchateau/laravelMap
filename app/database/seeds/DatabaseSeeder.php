@@ -10,6 +10,8 @@ class DatabaseSeeder extends Seeder {
 	public function run()
 	{
 		Eloquent::unguard();
+		$this->call('userSeeder');
+		$this->command->info('Users seeded!');
 
 		$this->call('UsStateSeeder');
 		$this->command->info('Us States seeded!');
@@ -19,6 +21,23 @@ class DatabaseSeeder extends Seeder {
 	}
 }
 
+class userSeeder extends Seeder {
+
+    public function run()
+    {	
+    	//DB::table('counties')->delete();
+    	
+    	//Counties::create(array());
+        
+        DB::table('users')->insert(
+        array(
+            array('firstname' => 'Aaron', 'lastname' => 'duchateau', 'email' => 'chateauconcept@gmail.com', 'password' => Hash::make('asdfasdf') ),
+      		array('firstname' => 'Kent', 'lastname' => 'lastname', 'email' => 'alpinepropertiesllc@gmail.com', 'password' => Hash::make('test123123') ),
+      		array('firstname' => 'Andrew', 'lastname' => 'Cook', 'email' => 'andrewkcook@gmail.com', 'password' => Hash::make('test123123') )
+		));
+    }
+
+}
 
 class countySeeder extends Seeder {
 
@@ -30,8 +49,8 @@ class countySeeder extends Seeder {
         
         DB::table('counties')->insert(
         array(
-            array('countyName' => 'Lane County', 'stateId' => '38', 'remoteTableId' => '1QD4JANRJFJ2_G4pWypW4ofQO0ShK0iHtKPEciTt1', 'nestedMapColumnName' => 'ACCOUNT', 'active' => 'true'),
-      		array('countyName' => 'Jackson County', 'stateId' => '38', 'remoteTableId' => '1w27IrwI0eK0nr9_dXm70L56EnzGpb6t_4HC1XZ_a', 'nestedMapColumnName' => 'ACCOUNT', 'active' => 'true')
+            array('countyName' => 'Lane County', 'countyNameConcat' => 'LaneCounty', 'stateId' => '38', 'stateAb' =>'OR', 'remoteTableId' => '1QD4JANRJFJ2_G4pWypW4ofQO0ShK0iHtKPEciTt1', 'nestedMapColumnName' => 'ACCOUNT', 'active' => 'true'),
+      		array('countyName' => 'Jackson County', 'countyNameConcat' => 'JacksonCounty', 'stateId' => '38', 'stateAb' =>'OR', 'remoteTableId' => '1w27IrwI0eK0nr9_dXm70L56EnzGpb6t_4HC1XZ_a', 'nestedMapColumnName' => 'ACCOUNT', 'active' => 'true')
 		));
     }
 

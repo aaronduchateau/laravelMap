@@ -151,6 +151,7 @@
 </div>
 <!--include this on every page-->
 <input type="hidden" id="client-email-holder" value="{{Auth::user()->email}}">
+<input type="hidden" id="ghetto-domain-for-js-holder" value="{{ URL::asset('')}}">
 
 <!-- Bootstrap core JavaScript
 ================================================== -->

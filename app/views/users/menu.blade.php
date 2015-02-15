@@ -3,45 +3,6 @@
   <h5 style="color:white;" class="left-result-heading dash-heading-4 pull-left">
     &nbsp;&nbsp;&nbsp;Welcome, please choose a state, then a county from the menu below:
   </h5>
-  <div class="pull-left left-action-buttons" style="display:none;">
-    <h3 class="left-action-buttons-title">Avatar Needed</h3>
-    <a class="btn btn-primary pull-right back" style="margin-right: 20px;">
-      <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 
-    </a>
-    <div class="dropdown pull-right">
-      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" style="margin-right:10px;">
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Apply</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Bookmark</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Endorse</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Print</a></li>
-      </ul>
-    </div>
-    <a href="javascript:void(0);" id="review-scroll" class="btn btn-primary pull-right">
-      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
-      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-    </a>
-  </div>
-  <button id="config" class="btn btn-primary pull-right" style="margin-right:10px;">
-    <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 
-  </button>
-  <button class="btn btn-primary pull-right back-right" style="margin-right:10px;display:none;">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-  </button>
-   <button id="current-loc-click" class="btn btn-primary pull-right" style="margin-right:10px;">
-    <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-  </button>
-  <button id="search-click"class="btn btn-primary pull-right" style="margin-right:10px;">
-    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-  </button>
-  <input class="input custom-input pull-right" id="lngMap" placeholder="longitude" value="-122.877734">
-  <input class="input custom-input pull-right" id="latMap" placeholder="lattitude" value="42.320921">
-  
 </div>
 
 <div class="container-dash">
@@ -70,40 +31,35 @@
       <!--this is populated using avatarTemplate-->
     </div>
  </div>
- <div id="map-canvas" class="dash-center" style="background-color:#7692AA;">
-    <div class="dash-center-top-container" style="width: 100%;">
-      <div class="dash-center-top">
-        <h4 class="white-class" style="width:300px;text-align:center;margin-top:50px;">
-        <img src="../images/loader.gif" style="width:32px;height:32px;">
-        Loading Content...
-        </h4>
-      </div>  
-    </div>
-    <div class="dash-center-bottom" style="width:100%;height:150px;padding:15px;background-color:rgb(51, 122, 183);">
-      <div class="pull-left" style="width: 70%">
-        <textarea id="message-box" style="height:74px;padding:5px;"></textarea>
-      </div>
+ <div id="map-canvas" class="dash-center" style="background-color:rgba(13,106,146,0.9);">
+    <div class="dash-center-top-container" style="width: 100%;background-color:#7692AA;display:none;">
       
-      <a class="btn btn-primary pull-right" style="margin-right: 0px">
-        <span class="glyphicon glyphicon-camera" aria-hidden="true"></span> 
+        <div class="menu-user-agreement">
+          <!--this is populated using avatarTemplate-->
+        </div>
+     
+    </div>
+    <div class="dash-center-bottom" style="width:100%;height:150px;padding:15px;background-color:rgb(51, 122, 183);display:none;">
+      <p style="color:white;">
+        I, {{Auth::user()->firstname}}</b> {{Auth::user()->lastname}}, agree to the Terms above on <span id="agree-date"></span>, and will not provide another party with access to login credentials provided without the express written consent of Aaron DuChateau.
+      </p>
+      <div style="margin-top:20px;">
+      <a class="btn btn-primary pull-right" id="decline" style="margin-right:5px;">
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 
+        DECLINE
       </a>
-      <a class="btn btn-primary pull-right">
-        <span class="glyphicon glyphicon-paperclip" aria-hidden="true"></span> 
+      <a class="btn btn-primary pull-right" id="accept" style="margin-right:5px;">
+        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> 
+        ACCEPT
       </a>
-      <a class="btn btn-primary pull-right">
-        <span class="glyphicon glyphicon-picture" aria-hidden="true"></span> 
-      </a>
-       <br><br>
-      <a class="btn btn-primary pull-right" id="send-btn" style="margin-right: 0px;">
-        Send <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> 
-      </a>
+      </div>
     </div>    
   </div>
 </div>
-
-
-<!--include this on every page-->
+<!--include this on every sub page-->
 <input type="hidden" id="client-email-holder" value="{{Auth::user()->email}}">
+<input type="hidden" id="client-name-holder" value="{{Auth::user()->firstname}} {{Auth::user()->lastname}}">
+
 
 <!-- Bootstrap core JavaScript
 ================================================== -->
@@ -114,6 +70,7 @@
 <script src="{{ URL::asset('dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ URL::asset('dist/js/handlebars-v2.0.0.js') }}"></script>
 <script src="{{ URL::asset('dist/js/jQuery.print.js') }}"></script>
+<script src="{{ URL::asset('dist/js/moment.js') }}"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{{ URL::asset('assets/js/ie10-viewport-bug-workaround.js') }}"></script>
 
@@ -135,38 +92,87 @@
     window.g.twoLeftPageSetup();
     
     //load global template and populate top menu
-    window.g.populateTopMenu({menu:' active', dash:'', profile:'', transactions:'', help:'', emailHeld: $('#client-email-holder').val()});
+    window.g.populateTopMenu(
+      { menu: {class: " active", link: "javascript:void(0);", action: ""},
+        dash: {class: "", link: "javascript:void(0);", action: ""},
+        emailHeld: $('#client-email-holder').val() });
+      
     
 
     $(".menu-left-list-1").mCustomScrollbar({
         theme:"minimal"
     });
 
+    $(".menu-left-list-2").mCustomScrollbar({
+        theme:"minimal"
+    });
 
-    function highlightLastItem(className, event){
-        $( className ).each(function() {
-            $( this ).removeClass('active-item-right');
-        });
-        $(event.target).closest( className ).addClass('active-item-right');
+    $(".dash-center-top-container").mCustomScrollbar({
+        theme:"minimal"
+    });
+
+    var populateUserAgreement = function (){ 
+        //this loads our template for the second left pain
+        var source = $("#menu-terms-template").html();
+        var agreementTemplate = Handlebars.compile(source);
+        templateResult = agreementTemplate({username: $('#client-name-holder').val()});
+        $('.menu-user-agreement').html(templateResult);
     }
+    populateUserAgreement();
+
 
     var populateSecondMenu = function (data){ 
-     
         //this loads our template for the second left pain
         var source = $("#menu-left-2-template").html();
         var leftDashTemplate = Handlebars.compile(source);
         templateResult = leftDashTemplate({menu: data});
         $('.menu-left-inter-margin-2').html(templateResult);
-
     }
     
-    //populate second from left menu bar
+    
+
+    //action for first menu, populate second from left menu bar
     $(document).on('click', '.left-open-1', function(event) {
-        var indexTracker = $(event.target).closest('div').attr('data-result-index');
+        var closestDiv = $(event.target).closest('div');
+
+        var indexTracker = closestDiv.attr('data-result-index');
         //highlight the last clicked item
-        highlightLastItem('.left-open-1', event);
+        window.g.highlightLastItem('.left-open-1', event, 'active-item-right');
         //call model provide index and callback
         window.menu.fetchCounties(indexTracker, populateSecondMenu);
+        $('.dash-center-top-container').slideUp();
+        $('.dash-center-bottom').slideUp();
+        
+        window.g.scrollItemToTop(".menu-left-list-1", closestDiv);
+    });
+
+    //action for second menu, reveal terms and populate button
+    var state;
+    var countyConcat;
+    $(document).on('click', '.left-open-2', function(event) {
+        var closestDiv = $(event.target).closest('div');
+
+        var indexTracker = closestDiv.attr('data-result-index');
+        state = closestDiv.attr('data-result-state');
+        countyConcat = closestDiv.attr('data-result-county-concat');
+        
+        //highlight the last clicked item
+        window.g.highlightLastItem('.left-open-2', event, 'active-item-right');
+        //scroll to last clicked item
+        window.g.scrollItemToTop(".menu-left-list-2", closestDiv);
+        
+        $('#agree-date').text(moment().format('MMMM Do YYYY'));
+
+        $('.dash-center-top-container').slideDown( "slow");
+        $('.dash-center-bottom').slideDown( "slow");
+    });
+
+    $(document).on('click', '#decline', function(event) {
+        alert('Please Agree to the Terms and Condtions to Continue');
+    });
+
+    $(document).on('click', '#accept', function(event) {
+        window.location.href = "{{ URL::asset('') }}users/dashboard/" + state + "/" + countyConcat;
     });
     
 

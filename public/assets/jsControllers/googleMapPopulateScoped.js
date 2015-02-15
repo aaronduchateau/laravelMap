@@ -1,14 +1,40 @@
 window.gmd = {
+	//keep configurations crap out of intereact map
+	pointMarkerUrl: function(){
+		return (window.g.jsBaseUrl() + '/images/icon-map-new-small.png');
+	},
 	interactMap: {
 		panToPosition: function(latMap, lngMap){
 			var jacksonCounty = new google.maps.LatLng(latMap, lngMap);
 			var marker = new google.maps.Marker({
 			    position: jacksonCounty,
-			    icon: '../images/icon-map-new-small.png',
+			    icon: window.gmd.pointMarkerUrl(),
 			    map: window.map,
 			    title: 'Hello World!'
 			});
 			window.map.panTo(jacksonCounty);
+		},
+		//this is temporary, and ugly 
+		addressLookup: function(address){
+			var holdThis = this;
+			var geocoder = new google.maps.Geocoder();
+			geocoder.geocode( { 'address': address}, function(results, status) {
+			  if (status == google.maps.GeocoderStatus.OK)
+			  {
+			      
+			      $('#latMap').val(results[0].geometry.location.k);
+			      $('#lngMap').val(results[0].geometry.location.B);
+			      $('#search-click').click();
+			      
+			      //console.log(lat);
+			      //var lng = results[0].geometry.location.B;
+			      //console.log(lng);
+			      //holdThis.panToPosition (lat, lng);
+			      
+			  } else {
+			  	alert('Sorry, looks like we could not find that address');
+			  }
+			});
 		},
 		nestedMap: function(customAccount){
 
@@ -69,7 +95,7 @@ window.gmd = {
 			var marker = new google.maps.Marker({
 			    position: jacksonCounty,
 			    map: window.map,
-			    icon: '../images/icon-map-new-small.png',
+			    icon: window.gmd.pointMarkerUrl(),
 			    title: 'Hello World!'
 			});
 

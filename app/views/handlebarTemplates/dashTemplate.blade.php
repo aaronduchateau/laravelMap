@@ -61,7 +61,7 @@
           <table style="margin-left:10px;margin-right:5px;" data-attr-lat="@{{mapLat}}" data-attr-lng="@{{mapLng}}">
             <tr>
               <td style="width:18%;">
-               <img src="../images/icon-map-new.png" style="margin-left:5px;margin-right:10px;width:40px;" class="small-user">
+               <img src="{{ URL::asset('images/icon-map-new.png') }}" style="margin-left:5px;margin-right:10px;width:40px;" class="small-user">
               </td>
               <td>
                 <div style='margin-top:10px;margin-bottom:10px;'>

@@ -1,4 +1,7 @@
 window.g = {
+	jsBaseUrl: function(){
+		return $('#ghetto-domain-for-js-holder').val();
+	},
 	windowHeight: function(){
 		return $( window ).height();
 	},
@@ -128,6 +131,13 @@ window.g = {
   		$('#body-dash').prepend(templateResult);
   		window.g.generalLoaderHtml = $("#general-loader").html();
 	},
+	highlightLastItem: function(targetClassName, event, activeClass){
+        $( targetClassName ).removeClass('active-item-right');
+        $(event.target).closest( targetClassName ).addClass( activeClass );
+    },
+    scrollItemToTop: function(nameOfScrollBinding, scrollToMe ){
+    	$( nameOfScrollBinding ).mCustomScrollbar("scrollTo", scrollToMe );
+    },
 	mapRowData: {}
 }	
 
