@@ -67,19 +67,20 @@
     <div class="options-inter-margin" style="display:none;">
       <!--content-->
       <form role="form">
-        <div class="form-group">
+        <!--<div class="form-group">
           <label for="exampleInputEmail1">Search by Keyword:</label>
           <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Filter by Keywords">
-        </div>
+        </div>-->
         <div class="form-group">
           <label for="exampleInputEmail1">Search Location:</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Address">
-          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="City">
-          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="State">
-          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Zip">
-          <input type="checkbox"> <span style="color:white;">Reset to saved Address</span>
+          <input type="text" class="form-control" placeholder="Address" id="search-address">
+          <input type="text" class="form-control" placeholder="City" id="search-city">
+          <input type="text" class="form-control" placeholder="State" id="search-state">
+          <input type="text" class="form-control" placeholder="Zip" id="search-zip">
+          <!--<input type="checkbox"> <span style="color:white;">Reset to saved Address</span>-->
+          <a href="javascript:void(0);" class="btn btn-default" id="search-all-address">Search By Address</a>
         </div>
-        <div class="form-group">
+        <!--<div class="form-group">
            <div class="dropdown">
               <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
                 filter within 50 miles
@@ -101,7 +102,7 @@
           <input type="text" class="form-control" id="exampleInputPassword1" placeholder="End Date:">
         </div>
         <button type="submit" class="btn btn-default">Update Search Results</button>
-      </form>
+      </form>-->
       <!--content-->
     </div>
   </div>
@@ -347,6 +348,16 @@
        $('.single-right-item:first').addClass('active-item-right');
        window.gmd.interactMap.panToPosition( $('#latMap').val(), $('#lngMap').val() );
        console.log('click');
+    });
+
+    $(document).on('click', '#search-all-address', function() {
+      var address = $('#search-address').val();
+      var city = $('#search-city').val();
+      var state = $('#search-state').val();
+      var zip = $('#search-zip').val();
+      var fullAddy = address + ' ' + city + ' ' + state + ' ' + zip;
+      window.gmd.interactMap.addressLookup(fullAddy);
+      goBack();
     });
 
     $(document).on('click', '#current-loc-click', function() {
