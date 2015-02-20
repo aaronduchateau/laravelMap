@@ -197,11 +197,19 @@
   }
 
   $( document ).ready(function() {
+    console.log({{$mapCountyData}});
+    window.g.mapConfig = {{$mapCountyData}};
+    $('#latMap').val(window.g.mapConfig[0].startLat);
+    $('#lngMap').val(window.g.mapConfig[0].startLng);
+
     //set up everything to have the right margins and what not
     window.g.triPageSetup();
     
     //load global template and populate top menu
-    window.g.populateTopMenu({dash:' active', profile:'', transactions:'', help:'', emailHeld: $('#client-email-holder').val()});
+     window.g.populateTopMenu(
+      { menu: {class: "", link: "{{ URL::asset('/users/menu') }}", action: ""},
+        dash: {class: " active", link: "javascript:void(0);", action: ""},
+        emailHeld: $('#client-email-holder').val() });
     
     //load dash specific template
     var rightDashTemplate;

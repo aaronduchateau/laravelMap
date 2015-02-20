@@ -22,8 +22,8 @@ window.gmd = {
 			  if (status == google.maps.GeocoderStatus.OK)
 			  {
 			      
-			      $('#latMap').val(results[0].geometry.location.k);
-			      $('#lngMap').val(results[0].geometry.location.B);
+			      $('#latMap').val(results[0].geometry.location.lat());
+			      $('#lngMap').val(results[0].geometry.location.lng());
 			      $('#search-click').click();
 			      
 			      //console.log(lat);
@@ -39,6 +39,7 @@ window.gmd = {
 		nestedMap: function(customAccount){
 
 			var jacksonCounty = new google.maps.LatLng(window.infoWindowLat, window.infoWindowLng);
+			console.log(jacksonCounty);
 			var mapOptions = {
 				center: jacksonCounty,
 				zoom: 17,
@@ -49,11 +50,11 @@ window.gmd = {
 			window.nestedMap = new google.maps.Map(document.getElementById('nested-map'),
 			  mapOptions);
 			//console.log(customAccount);
-			var customAccountString = 'ACCOUNT = ' + customAccount;
+			var customAccountString = window.g.mapConfig[0].nestedMapColumnName + ' = ' + customAccount;
 			var layer = new google.maps.FusionTablesLayer({
 		    query: {
 		      select: 'geometry',
-		      from: '1w27IrwI0eK0nr9_dXm70L56EnzGpb6t_4HC1XZ_a',
+		      from: window.g.mapConfig[0].remoteTableId,
 		      where: customAccountString
 		    },
 		    styles: [{
@@ -124,7 +125,7 @@ window.gmd = {
 		  layer = new google.maps.FusionTablesLayer({
 		    query: {
 		      select: 'geometry',
-		      from: '1w27IrwI0eK0nr9_dXm70L56EnzGpb6t_4HC1XZ_a'
+		      from: window.g.mapConfig[0].remoteTableId
 		    },
 		    styles: [{
 		      polygonOptions: {
@@ -141,8 +142,8 @@ window.gmd = {
 		  layer.setMap(window.map);
 
 		  google.maps.event.addListener(layer, 'click', function(e) {
-		  	window.infoWindowLng = e.latLng.B;
-		  	window.infoWindowLat = e.latLng.k;
+		  	window.infoWindowLng = e.latLng.lng();
+		  	window.infoWindowLat = e.latLng.lat();
 
 		    if (e.row['FEEOWNER'].value){
 		    	var feeOwner = e.row['FEEOWNER'].value;

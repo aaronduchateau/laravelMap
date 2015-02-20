@@ -20,7 +20,9 @@ class CreateCountyTable extends Migration {
     		$table->string('countyName', 200);
     		$table->string('countyNameConcat', 100);
     		$table->string('nestedMapColumnName', 50);
-    		$table->string('active', 20);
+    		$table->string('startLat', 200);
+    		$table->string('startLng', 200);
+    		$table->boolean('active');
     	});
 	}
 

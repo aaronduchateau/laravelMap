@@ -4,6 +4,7 @@ class UsersController extends BaseController {
 	public function __construct() {
 		$this->beforeFilter('csrf', array('on'=>'post'));
 		$this->beforeFilter('auth', array('only'=>array('getDashboard')));
+		$this->routeParamters = Route::current()->parameters();
 	}
 	public function getRegister() {
 		$this->layout->content = View::make('users.register');
@@ -43,7 +44,14 @@ class UsersController extends BaseController {
 		}
 	}
 	public function getDashboard() {
-		$this->layout->content = View::make('users.dashboard');
+		//var $myUrl = URL::current();
+		$oregonSegment = Request::segment(3);
+		$countySegment = Request::segment(4);
+		$countyResult = DB::table('counties')->where('countyNameConcat', '=', $countySegment)->where('stateAb', '=', $oregonSegment)->get();
+    
+    	$withResult = json_encode($countyResult);
+		//var $params = Route::current()->parameters();
+		$this->layout->content = View::make('users.dashboard')->with('mapCountyData',$withResult);
 	}
 	public function getMenu() {
 		$usStates = UsStates::all();

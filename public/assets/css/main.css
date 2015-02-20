@@ -77,6 +77,14 @@ border-bottom: 0px solid #e5e5e5;
 }
 
 /*dash page assets*/
+.custom-well-dash-unselected {
+	//margin-top:1px;
+	margin-bottom:1px;
+	opacity: 0.5;
+	border:0px;
+	color:white;
+}
+
 .custom-well-dash-left {
 	//margin-top:1px;
 	margin-bottom:1px;

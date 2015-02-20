@@ -2,6 +2,7 @@ window.g = {
 	jsBaseUrl: function(){
 		return $('#ghetto-domain-for-js-holder').val();
 	},
+	mapConfig: {},
 	windowHeight: function(){
 		return $( window ).height();
 	},
