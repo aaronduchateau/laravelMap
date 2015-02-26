@@ -10,22 +10,20 @@
     </a>
     <div class="dropdown pull-right">
       <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" style="margin-right:10px;">
-        <span class="caret"></span>
+        More options <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Apply</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Bookmark</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Endorse</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Print</a></li>
+        <li role="presentation"><a id="save-me" role="menuitem" tabindex="-1" href="#">Save this taxlot</a></li>
+        <li role="presentation"><a id="print-me" role="menuitem" tabindex="-1" href="#">Print this view</a></li>
       </ul>
     </div>
-    <a href="javascript:void(0);" id="review-scroll" class="btn btn-primary pull-right">
+    <!--<a href="javascript:void(0);" id="review-scroll" class="btn btn-primary pull-right">
       <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
       <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
       <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
       <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
       <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
-    </a>
+    </a>-->
   </div>
   <button id="config" class="btn btn-primary pull-right" style="margin-right:10px;">
     <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> 
@@ -169,6 +167,9 @@
 <script src="{{ URL::asset('assets/jsModels/avatarDashboardModel.js') }}"></script>
 <script src="{{ URL::asset('assets/jsControllers/googleMapPopulateScoped.js') }}"></script>
 <script src="{{ URL::asset('assets/jsControllers/globalVars.js') }}"></script>
+
+<script src="{{ URL::asset('assets/jsTranslations/OR.js') }}"></script>
+
 <script src="{{ URL::asset('dist/scroll/jquery.mCustomScrollbar.concat.min.js') }}"></script>
 <!--$(selector).mCustomScrollbar("scrollTo",position,options);-->
 <!--//http://manos.malihu.gr/jquery-custom-content-scroller/-->
@@ -286,8 +287,8 @@
           var templateResult = leftDashTemplate(window.g.mapRowData);
           $('.dash-left-full-margin').html(templateResult);
 
-          //
-          window.gmd.interactMap.nestedMap(window.g.mapRowData['ACCOUNT'].value);
+          //trigger Nested Map
+          window.gmd.interactMap.nestedMap();
 
           //this loads the work description for the expanded view
           source   = $("#job-description").html();

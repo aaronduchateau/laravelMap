@@ -36,7 +36,7 @@ window.gmd = {
 			  }
 			});
 		},
-		nestedMap: function(customAccount){
+		nestedMap: function(){
 
 			var jacksonCounty = new google.maps.LatLng(window.infoWindowLat, window.infoWindowLng);
 			console.log(jacksonCounty);
@@ -50,7 +50,8 @@ window.gmd = {
 			window.nestedMap = new google.maps.Map(document.getElementById('nested-map'),
 			  mapOptions);
 			//console.log(customAccount);
-			var customAccountString = window.g.mapConfig[0].nestedMapColumnName + ' = ' + customAccount;
+			//console.log('ddd', window.g.mapRowData.queryVal);
+			var customAccountString = window.g.mapConfig[0].nestedMapColumnName + ' = ' + window.g.mapRowData.queryVal.value;
 			var layer = new google.maps.FusionTablesLayer({
 		    query: {
 		      select: 'geometry',
@@ -145,18 +146,23 @@ window.gmd = {
 		  	window.infoWindowLng = e.latLng.lng();
 		  	window.infoWindowLat = e.latLng.lat();
 
-		    if (e.row['FEEOWNER'].value){
-		    	var feeOwner = e.row['FEEOWNER'].value;
+		  	//let's translate our data
+		  	//console.log(window.g.mapConfig[0]);
+		  	var row = window.translations[window.g.mapConfig[0].countyNameConcat].translate(e.row);
+		  	//console.log(row);
+
+		    if (row['ownerName']){
+		    	var feeOwner = row['ownerName'].value;
 		    } else {
 		    	var feeOwner = 'unavailable';
 		    }
-		    if (e.row['ACREAGE'].value){
-		    	var acreage = e.row['ACREAGE'].value;
+		    if (row['acreage']){
+		    	var acreage = row['acreage'].value;
 		    } else {
 		    	var acreage = 'unavailable';
 		    }
-		    if (e.row['LANDVALUE'].value){
-		    	var landValue = e.row['LANDVALUE'].value;
+		    if (row['landValue']){
+		    	var landValue = row['landValue'].value;
 		    } else {
 		    	var landValue= 'unavailable';
 		    }
@@ -167,8 +173,12 @@ window.gmd = {
       		e.infoWindowHtml += "<b>Value: </b>$" + landValue + "</div><br/><br/><div style='clear:both;'></div>";
       		e.infoWindowHtml += "</div>";
 		    
-		    console.log(e.row);
-		    window.g.mapRowData = e.row;
+		    
+		    window.g.mapRowData = row;
+		    window.g.mapRowData.lat = window.infoWindowLat;
+		    window.g.mapRowData.lng = window.infoWindowLng;
+		    console.log('window.g.mapRowData');
+		    console.log(window.g.mapRowData);
 		   
 		  });
 		}

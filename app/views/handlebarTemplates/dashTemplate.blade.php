@@ -137,7 +137,7 @@
             				<br/>
             				<h5>
 	            				<span class="label label-primary darker-blue-backgroud-class">
-	            					$@{{emptyCheck FEEOWNER.value}} / $@{{emptyCheck INCAREOF.value}}
+	            					@{{emptyCheck ownerName.value}} / @{{emptyCheck inCareOf.value}}
 	            				</span>	
             				</h5>
             			</div>
@@ -148,7 +148,7 @@
             				<br/>
             				<h5>
             					<span class="label label-primary darker-blue-backgroud-class">
-            						@{{formatCurrency LANDVALUE.value}} / @{{formatCurrency IMPVALUE.value}}
+            						$@{{formatCurrency landValue.value}} / $@{{formatCurrency impValue.value}}
         						</span>
     						</h5>
     					</div>
@@ -159,7 +159,7 @@
 							<br/>
 							<h5>
 								<span class="label label-primary darker-blue-backgroud-class">
-								@{{emptyCheck ACREAGE.value}}
+								@{{emptyCheck acreage.value}}
 								</span>
 							</h5>
             			</div>
@@ -170,7 +170,7 @@
 							<br/>
 							<h5>
 								<span class="label label-primary darker-blue-backgroud-class">
-								#@{{emptyCheck ACCOUNT.value}}
+								#@{{emptyCheck account.value}}
 								</span>
 							</h5>
             			</div>
@@ -178,34 +178,34 @@
             		<td style="max-width:50%;">
             			<div class="well custom-well-info">
             				<span class="just-custom-font">
-            				 	Site Address:
+            				 	Contact Mailing Address 1:
             				</span>
             				<br/>
             				<h5>
             					<span class="label label-primary darker-blue-backgroud-class">
-            						@{{emptyCheck SITEADD.value}}
+            						@{{emptyCheck ownerAddress1.value}}
         						</span>
     						</h5>
     					</div>
 	            		<div class="well custom-well-info">
             				<span class="just-custom-font">
-            					Contact Mailing Address 1:
+            					Contact Mailing Address 2:
             				</span>
             				<br/>
             				<h5>
 	            				<span class="label label-primary darker-blue-backgroud-class">
-	            					@{{emptyCheck ADDRESS1.value}}
+	            					@{{emptyCheck ownerAddress2.value}}
 	            				</span>	
             				</h5>
             			</div>
             			<div class="well custom-well-info">
             				<span class="just-custom-font">
-            				 	Contact Mailing Address 2:
+            				 	Contact Mailing Address 3:
             				</span>
             				<br/>
             				<h5>
             					<span class="label label-primary darker-blue-backgroud-class">
-            						@{{emptyCheck ADDRESS2.value}}
+            						@{{emptyCheck ownerAddress2.value}}
         						</span>
     						</h5>
     					</div>
@@ -216,7 +216,7 @@
 							<br/>
 							<h5>
 								<span class="label label-primary darker-blue-backgroud-class">
-								@{{emptyCheck CITY.value}}, @{{emptyCheck STATE.value}} @{{emptyCheck ZIPCODE.value}} 
+								@{{emptyCheck ownerCity.value}}, @{{emptyCheck ownerState.value}} @{{emptyCheck ownerZip.value}} 
 								</span>
 							</h5>
             			</div>
