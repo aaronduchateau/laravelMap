@@ -4,7 +4,7 @@
     &nbsp;&nbsp;&nbsp;Good News! 250 gigs near your location (97401)
   </h5>
   <div class="pull-left left-action-buttons" style="display:none;">
-    <h3 class="left-action-buttons-title">Avatar Needed</h3>
+    <h3 class="left-action-buttons-title"><input type="checkbox" value="1" checked></h3>
     <a class="btn btn-primary pull-right back" style="margin-right: 20px;">
       <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 
     </a>
@@ -34,12 +34,6 @@
    <button id="current-loc-click" class="btn btn-primary pull-right" style="margin-right:10px;">
     <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
   </button>
-  <button id="search-click"class="btn btn-primary pull-right" style="margin-right:10px;">
-    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-  </button>
-  <input class="input custom-input pull-right" id="lngMap" placeholder="longitude" value="-122.877734">
-  <input class="input custom-input pull-right" id="latMap" placeholder="lattitude" value="42.320921">
-  
 </div>
 <div class="container-dash">
   <div class="dash-left-list" style="background-color:rgba(13,106,146,0.9);">
@@ -70,6 +64,11 @@
           <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Filter by Keywords">
         </div>-->
         <div class="form-group">
+          <label for="exampleInputEmail1">Search by Lat & Long:</label>
+          <input type="text" class="form-control" id="lngMap" placeholder="longitude" value="-122.877734">
+          <input type="text" class="form-control" id="latMap" placeholder="lattitude" value="42.320921">
+          <a href="javascript:void(0);" id="search-click"class="btn btn-default" >Search</a>
+          <br/>
           <label for="exampleInputEmail1">Search Location:</label>
           <input type="text" class="form-control" placeholder="Address" id="search-address">
           <input type="text" class="form-control" placeholder="City" id="search-city">
@@ -157,20 +156,24 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&v=3&libraries=geometry"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 
 <script src="{{ URL::asset('dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ URL::asset('dist/js/handlebars-v2.0.0.js') }}"></script>
 <script src="{{ URL::asset('dist/js/jQuery.print.js') }}"></script>
+<script src="{{ URL::asset('dist/js/moment.js') }}"></script>
 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="{{ URL::asset('assets/js/ie10-viewport-bug-workaround.js') }}"></script>
 
 <script src="{{ URL::asset('assets/jsModels/avatarDashboardModel.js') }}"></script>
+<script src="{{ URL::asset('assets/jsModels/dashModel.js') }}"></script>
 <script src="{{ URL::asset('assets/jsControllers/googleMapPopulateScoped.js') }}"></script>
 <script src="{{ URL::asset('assets/jsControllers/globalVars.js') }}"></script>
 
 <script src="{{ URL::asset('assets/jsTranslations/OR.js') }}"></script>
 
 <script src="{{ URL::asset('dist/scroll/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+<script src="{{ URL::asset('dist/js/jQuery.switchButton.js') }}"></script>
 <!--$(selector).mCustomScrollbar("scrollTo",position,options);-->
 <!--//http://manos.malihu.gr/jquery-custom-content-scroller/-->
 
@@ -180,10 +183,7 @@
 
 <script>
   function timeNow() {
-    var d = new Date(),
-        h = (d.getHours()<10?'0':'') + d.getHours(),
-        m = (d.getMinutes()<10?'0':'') + d.getMinutes();
-    return (h + ':' + m);
+    return moment().format('MMMM Do YYYY, h:mm a');
   }
 
   function rightTemplateJson(){
@@ -198,10 +198,14 @@
   }
 
   $( document ).ready(function() {
-    console.log({{$mapCountyData}});
+    
     window.g.mapConfig = {{$mapCountyData}};
-    $('#latMap').val(window.g.mapConfig[0].startLat);
-    $('#lngMap').val(window.g.mapConfig[0].startLng);
+    window.g.mapConfig = window.g.mapConfig[0];
+    window.g.mapConfig.userId = {{Auth::user()->id}};
+
+    console.log(window.g.mapConfig);
+    $('#latMap').val(window.g.mapConfig.startLat);
+    $('#lngMap').val(window.g.mapConfig.startLng);
 
     //set up everything to have the right margins and what not
     window.g.triPageSetup();
@@ -216,12 +220,22 @@
     var rightDashTemplate;
     var templateResult;
 
-    
     //this loads our template for the left pain
-    var source   = $("#dash-left-template").html();
-    var leftDashTemplate = Handlebars.compile(source);
-    templateResult = leftDashTemplate(window.avatar);
-    $('.dash-left-inter-margin').append(templateResult);
+    var loadLeftBar = function(data){
+      var source = $("#dash-left-template").html();
+      var leftDashTemplate = Handlebars.compile(source);
+      //templateResult = leftDashTemplate({dashLeftArrayData: JSON.parse(data)});
+      templateResult = leftDashTemplate({dashLeftArrayData: data});
+      $('.dash-left-inter-margin').prepend(templateResult);
+    }
+
+    window.dashModel.getSavedTaxlots(loadLeftBar);
+
+
+    //var source   = $("#dash-left-template").html();
+    //var leftDashTemplate = Handlebars.compile(source);
+    //templateResult = leftDashTemplate(window.avatar);
+    //$('.dash-left-inter-margin').append(templateResult);
 
     //this load our template for the right pain 
     source = $("#dash-right-template").html();
@@ -247,23 +261,21 @@
     });
 
     //print the left dash pain
-    $(document).on('click', '#print-left-dash', function(event) {
+    $(document).on('click', '#print-me', function(event) {
       $('.dash-left-full-margin').print({
         globalStyles : false, // Use Global styles
         mediaPrint : false, // Add link with attrbute media=print
         //stylesheet : "http://fonts.googleapis.com/css?family=Inconsolata", //Custom stylesheet
         iframe : false, //Print in a hidden iframe
-        noPrintSelector : ".avoid-this", // Don't print this
-        append : "custom tip can go here", // Add this on top
-        prepend : "<h2>Avatar RFP - MyEyesRemote.com</h2>" // Add this at bottom
+        noPrintSelector : ".avoid-this"
+        //, // Don't print this
+        //append : "custom tip can go here", // Add this on top
+        //prepend : "<h2>Avatar RFP - MyEyesRemote.com</h2>" // Add this at bottom
       });
     });
 
     $(document).on('click', '.left-open', function(event) {
-        //$(".container-dash").css('left','0px');
-        //if (window.nestedMap){
-          //window.nestedMap.setMap(null);
-        //}
+        
         $('#config').hide();
         $('.back').show();
         $('.back-right').hide()
@@ -286,10 +298,8 @@
         
           var templateResult = leftDashTemplate(window.g.mapRowData);
           $('.dash-left-full-margin').html(templateResult);
-
           //trigger Nested Map
           window.gmd.interactMap.nestedMap();
-
           //this loads the work description for the expanded view
           source   = $("#job-description").html();
           leftDashTemplate = Handlebars.compile(source);
@@ -302,7 +312,6 @@
           leftDashTemplate = Handlebars.compile(source);
           templateResult = leftDashTemplate(window.avatar);
           $('.dash-left-full-margin').append(templateResult);
-
           $('#image-thumb-slider').css("max-width", (window.g.halfWidth() - 80) + "px");
           $('.dash-left-full-margin').slideDown('slow');
         });
@@ -321,6 +330,26 @@
        goBack();
     });
 
+    //handle response from save taxlot event
+    var afterSaveTaxlot = function(data){
+      loadLeftBar(data);
+    };
+
+    //save taxlot data
+    $(document).on('click', '#save-me', function() {
+       window.dashModel.saveTaxlot(afterSaveTaxlot);
+    });
+
+    
+
+    //add map marker and pan to saved taxlot
+    $(document).on('click', '.left-saved-open', function() {
+       var lat = $(event.target).closest('div').attr('data-result-lat');
+       var lng = $(event.target).closest('div').attr('data-result-lng');
+       window.gmd.interactMap.panToPosition(lat, lng);
+    });
+
+
     function goBack(){
       $('.back-right').hide();
       $('#config').show();
@@ -335,6 +364,7 @@
         $('.dash-left-inter-margin').slideDown('slow');
           // Animation complete.
       });
+      window.g.communiqueClose();
     }
 
     $(document).on('click', '#config', function() {
@@ -356,10 +386,11 @@
        });
        $('.single-right-item:first').addClass('active-item-right');
        window.gmd.interactMap.panToPosition( $('#latMap').val(), $('#lngMap').val() );
-       console.log('click');
+       goBack();
     });
 
     $(document).on('click', '#search-all-address', function() {
+      window.g.communiqueOpen("Give us a second to find that address for you");
       var address = $('#search-address').val();
       var city = $('#search-city').val();
       var state = $('#search-state').val();
@@ -370,6 +401,7 @@
     });
 
     $(document).on('click', '#current-loc-click', function() {
+       window.g.communiqueOpen("Please wait while we find your location");
        navigator.geolocation.getCurrentPosition(myLocationCallback);
     });
 
@@ -382,6 +414,16 @@
        $(event.target).closest('.single-right-item').addClass('active-item-right');
        window.gmd.interactMap.panToPosition( latMap, lngMap );
       
+    });
+
+    //set up our checkbox slider for letter view vs detail view
+    $("input[type=checkbox]").switchButton({
+      width: 60,
+      height: 22,
+      button_width: 30,
+      on_label: 'Letter',
+      off_label: 'Detail',
+      checked: false
     });
     
   });

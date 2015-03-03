@@ -24,4 +24,7 @@
 Handlebars.registerHelper('currentDatePretty', function() {
     return (moment().format('MMMM Do YYYY'));
 });
+Handlebars.registerHelper('passedDatePretty', function(item) {
+    return (moment(item).format('MMMM Do YYYY, h:mm a'));
+});
 </script>

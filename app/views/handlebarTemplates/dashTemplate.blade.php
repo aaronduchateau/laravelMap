@@ -30,18 +30,18 @@
 <script id="dash-left-template" type="text/x-handlebars-template">
 	@{{#dashLeftArrayData}} 
 	<!--start item-->
-	    <div class="custom-well-dash-left left-open" data-result-index="@{{@index}}">
+	    <div class="custom-well-dash-left left-saved-open" data-result-index="@{{@index}}" data-result-lat="@{{lat}}" data-result-lng="@{{lng}}">
 	      <table style="margin-left:15px;margin-right:5px;width:95%;">
 	        <tr>
 	          <td style="width:90%;">
-	            <p class="heading">@{{title}}</p>
-	            <p class="body">@{{body}}</p>
+	            <p class="heading">@{{ownerName}}</p>
+	            <p class="body">total value: $@{{formatCurrency totalValue}}</p>
+	            <p class="body">lat: @{{lat}}</p>
+	            <p class="body">lng: @{{lng}}</p>
 	            <p class="small">
-	            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-	            <span class="mile-holder">@{{distance}}</span>
 	            <span class="pull-right">
 	            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
-	            <span class="date-holder">@{{eDate}}</span>
+	            <span class="date-holder">@{{passedDatePretty created_at}}</span>
 	            </p>
 	          </td>
 	          <td style="width:10%;">

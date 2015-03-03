@@ -72,6 +72,9 @@ window.g = {
 	    //set width for header
 	    $('.left-action-buttons').css("width", halfWidth + "px");
 
+	    //set up communique
+	    $("#communique").css("width", windowWidth + "px");
+
 	},
 	twoLeftPageSetup: function(){
 
@@ -124,6 +127,9 @@ window.g = {
 	    //set width for header
 	    $('.left-action-buttons').css("width", halfWidth + "px");
 
+	    //set up communique
+	    $("#communique").css("width", windowWidth + "px");
+
 	},
 	populateTopMenu: function(menuJson){
 		var source = $("#top-menu").html();
@@ -138,6 +144,21 @@ window.g = {
     },
     scrollItemToTop: function(nameOfScrollBinding, scrollToMe ){
     	$( nameOfScrollBinding ).mCustomScrollbar("scrollTo", scrollToMe );
+    },
+    communiqueOpen: function(content){
+    	$( "#communique-text" ).html(content);
+    	$( "#communique" ).animate({
+          	top: "0"
+        	}, 400, function() {
+        });
+    },
+    communiqueClose: function(){
+    	setTimeout(function(){ 
+	    	$( "#communique" ).animate({
+	          	top: "-50"
+	        	}, 800, function() {
+	        });
+    	}, 1400);
     },
 	mapRowData: {}
 }	

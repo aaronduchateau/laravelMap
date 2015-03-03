@@ -3,9 +3,15 @@ window.translations = {
 	JacksonCounty: {
 		translate: function(o) {
 			if (o.ASSESIMP && o.ASSESLAND){
-				var assesedTaxableValue = o.ASSESIMP.value + o.ASSESLAND.value;
+				var assesedTaxableValue = parseInt(o.ASSESIMP.value) + parseInt(o.ASSESLAND.value);
 			} else {
 				var assesedTaxableValue = null;
+			}
+
+			if (o.IMPVALUE && o.LANDVALUE){
+				var totalValue = parseInt(o.IMPVALUE.value) + parseInt(o.LANDVALUE.value);
+			} else {
+				var totalValue = null;
 			}
 			//query on ACCOUNT, queryVal holds actual query val
 			var tempJson = {
@@ -23,6 +29,7 @@ window.translations = {
 				ownerName: o.FEEOWNER,
 				impValue: o.IMPVALUE,
 				landValue: o.LANDVALUE,
+				totalValue: totalValue,
 				yearBuilt: o.YEARBLT,
 				taxLot: o.TAXLOT,
 				buildingType: null,
@@ -52,6 +59,11 @@ window.translations = {
 	},
 	LaneCounty: {
 		translate: function(o) {
+			if (o.impval && o.landval){
+				var totalValue = parseInt(o.impval.value) + parseInt(o.landval.value);
+			} else {
+				var totalValue = null;
+			}
 			//query on maptaxlot, queryVal holds actual query val
 			var tempJson = {
 				mapNumber: o.mapnumber,
@@ -68,6 +80,7 @@ window.translations = {
 				ownerName: o.ownname,
 				impValue: o.impval,
 				landValue: o.landval,
+				totalValue: totalValue,
 				yearBuilt: o.yearblt,
 				taxLot: o.taxlot,
 				buildingType: o.bldgtype,

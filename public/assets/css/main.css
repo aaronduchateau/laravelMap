@@ -269,6 +269,68 @@ border-bottom: 0px solid #e5e5e5;
     background-color:#337ab7;
 }
 
+/*switch button css*/
+.switch-button-label {
+    float: left;
+
+    
+    cursor: pointer;
+}
+
+.switch-button-label.off {
+    color: #0D6A92;
+}
+
+.switch-button-label.on {
+    color: white;
+}
+
+.switch-button-background {
+    float: left;
+    position: relative;
+
+    background: #0D6A92;
+    border: 1px solid #0b5778;
+
+    margin: 1px 10px;
+
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+
+    cursor: pointer;
+}
+
+.switch-button-button {
+    position: absolute;
+
+    left: -1px;
+    top : -1px;
+
+    background: #FAFAFA;
+    border: 1px solid #aaa;
+
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+/*communique css*/
+#communique {
+    position: fixed;
+    top: -50px;
+    background-color: #0D6A92;
+    height:50px;
+    z-index:1500;
+    opacity:0.8;
+}
+
+#communique-text {
+    text-align: center;
+    color: white;
+    margin-top:15px;
+}
+
 
 
 

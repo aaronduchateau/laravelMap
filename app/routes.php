@@ -16,14 +16,11 @@ Route::get('/', function()
 	return View::make('hello');
 });
 
+
 Route::controller('users', 'UsersController');
 
 
-
-
-//Ugly looking data routes
 Route::pattern('id', '[0-9]+');
-
 Route::get('listCounties/{id}', function($id)
 {
     $counties = DB::table('counties')->where('stateId', '=', $id)->get();
@@ -31,16 +28,20 @@ Route::get('listCounties/{id}', function($id)
     return json_encode($counties);
 });
 
-//this should not be here and provide auth check
-Route::get('listSavedTaxlots/{userId}/{countyId}', function($id)
-{
+
+Route::pattern('u', '[0-9]+');
+Route::pattern('c', '[0-9]+');
+Route::get('listSavedTaxlots/{u}/{c}', function($u, $c)
+{   
     $saved = DB::table('savedTaxLots')
-    	->where('userKey', '=', $userId)
-    	->where('countyKey', '=', $countyId)
+    	->where('userKey', '=', $u)
+    	->where('countyKey', '=', $c)
+    	->where('active', '=', 1)
     	->get();
     
     return json_encode($saved);
 });
+
 
 Route::post('saveCountySpecificRecord',array('before'=>'csrf','uses'=>function(){
     $data = Input::all();
@@ -49,6 +50,7 @@ Route::post('saveCountySpecificRecord',array('before'=>'csrf','uses'=>function()
         $s = new SavedTaxLots;
         $s->countyKey = $data['countyKey'];
         $s->userKey = $data['userKey'];
+        $s->ownerName = $data['ownerName'];
         $s->lat = $data['lat'];
         $s->lng = $data['lng'];
         $s->totalValue = $data['totalValue'];
@@ -66,16 +68,4 @@ Route::post('saveCountySpecificRecord',array('before'=>'csrf','uses'=>function()
 
 }));
 
-//$table->bigInteger('userKey');
-//			$table->bigInteger('countyKey');
-//			$table->string('ownerName', 300);
-//			$table->string('lat', 20);
-//    		$table->string('lng', 300);
-//    		$table->string('totalValue', 200);
-//    		$table->boolean('active');
-//$userTracker = new UserTracker;
-//   33: 			$userTracker->firstname = Auth::user()->firstname;
-//   34: 			$userTracker->lastname = Auth::user()->lastname;
-//   35: 			$userTracker->email = Auth::user()->email;
-//   36: 			$userTracker->ipaddress = Request::getClientIp();
-//   37: 			$userTracker->save();
+

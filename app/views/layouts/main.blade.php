@@ -24,6 +24,11 @@
   </head>
 
   <body id="body-dash" style="background-color: #337ab7;">
+    <div id="communique">
+      <h3 id="communique-text">
+        This is Placeholder Communique Text
+      </h3>  
+    </div>  
             
 	    @if(Session::has('message'))
 				<p class="alert">{{ Session::get('message') }}</p>

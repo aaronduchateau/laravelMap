@@ -51,11 +51,11 @@ window.gmd = {
 			  mapOptions);
 			//console.log(customAccount);
 			//console.log('ddd', window.g.mapRowData.queryVal);
-			var customAccountString = window.g.mapConfig[0].nestedMapColumnName + ' = ' + window.g.mapRowData.queryVal.value;
+			var customAccountString = window.g.mapConfig.nestedMapColumnName + ' = ' + window.g.mapRowData.queryVal.value;
 			var layer = new google.maps.FusionTablesLayer({
 		    query: {
 		      select: 'geometry',
-		      from: window.g.mapConfig[0].remoteTableId,
+		      from: window.g.mapConfig.remoteTableId,
 		      where: customAccountString
 		    },
 		    styles: [{
@@ -126,7 +126,7 @@ window.gmd = {
 		  layer = new google.maps.FusionTablesLayer({
 		    query: {
 		      select: 'geometry',
-		      from: window.g.mapConfig[0].remoteTableId
+		      from: window.g.mapConfig.remoteTableId
 		    },
 		    styles: [{
 		      polygonOptions: {
@@ -148,7 +148,7 @@ window.gmd = {
 
 		  	//let's translate our data
 		  	//console.log(window.g.mapConfig[0]);
-		  	var row = window.translations[window.g.mapConfig[0].countyNameConcat].translate(e.row);
+		  	var row = window.translations[window.g.mapConfig.countyNameConcat].translate(e.row);
 		  	//console.log(row);
 
 		    if (row['ownerName']){
@@ -161,16 +161,16 @@ window.gmd = {
 		    } else {
 		    	var acreage = 'unavailable';
 		    }
-		    if (row['landValue']){
-		    	var landValue = row['landValue'].value;
+		    if (row['totalValue']){
+		    	var totalValue = row['totalValue'];
 		    } else {
-		    	var landValue= 'unavailable';
+		    	var totalValue= 'unavailable';
 		    }
 
 		    e.infoWindowHtml = "<div style='width:300px;'><h5>Fee Owner: " + feeOwner + "</h5>";
 		    e.infoWindowHtml += "<hr/><a href='javascript:void(0);' data-result-index='288' class='btn btn-primary pull-right left-open'>Full Information</a>";
       		e.infoWindowHtml += "<div style='pull-left'><b>Acreage: </b>" + acreage + "<br/>";
-      		e.infoWindowHtml += "<b>Value: </b>$" + landValue + "</div><br/><br/><div style='clear:both;'></div>";
+      		e.infoWindowHtml += "<b>Value: </b>$" + totalValue + "</div><br/><br/><div style='clear:both;'></div>";
       		e.infoWindowHtml += "</div>";
 		    
 		    
