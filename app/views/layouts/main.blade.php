@@ -25,9 +25,9 @@
 
   <body id="body-dash" style="background-color: #337ab7;">
     <div id="communique">
-      <h3 id="communique-text">
-        This is Placeholder Communique Text
-      </h3>  
+      <h5 id="communique-text-holder">
+        <span id="communique-text">This is Placeholder Communique Text</span>
+      </h5>  
     </div>  
             
 	    @if(Session::has('message'))

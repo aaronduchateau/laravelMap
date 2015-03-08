@@ -31,7 +31,7 @@ class userSeeder extends Seeder {
         
         DB::table('users')->insert(
         array(
-            array('firstname' => 'Aaron', 'lastname' => 'duchateau', 'email' => 'chateauconcept@gmail.com', 'password' => Hash::make('asdfasdf') ),
+          array('firstname' => 'Aaron', 'lastname' => 'duchateau', 'email' => 'chateauconcept@gmail.com', 'password' => Hash::make('asdfasdf') ),
       		array('firstname' => 'Kent', 'lastname' => 'lastname', 'email' => 'alpinepropertiesllc@gmail.com', 'password' => Hash::make('test123123') ),
       		array('firstname' => 'Andrew', 'lastname' => 'Cook', 'email' => 'andrewkcook@gmail.com', 'password' => Hash::make('test123123') )
 		));

@@ -28,10 +28,11 @@
 	@{{/jobDescription}} 
 </script>
 <script id="dash-left-template" type="text/x-handlebars-template">
+	@{{#if dashLeftArrayData}}
 	@{{#dashLeftArrayData}} 
 	<!--start item-->
-	    <div class="custom-well-dash-left left-saved-open" data-result-index="@{{@index}}" data-result-lat="@{{lat}}" data-result-lng="@{{lng}}">
-	      <table style="margin-left:15px;margin-right:5px;width:95%;">
+	    <div class="custom-well-dash-left left-saved-open" data-result-index="@{{@index}}" data-result-lat="@{{lat}}" data-result-lng="@{{lng}}" data-result-owner="@{{ownerName}}">
+	      <table style="margin-left:15px;margin-right:5px;width:95%;padding-bottom:15px;">
 	        <tr>
 	          <td style="width:90%;">
 	            <p class="heading">@{{ownerName}}</p>
@@ -42,6 +43,8 @@
 	            <span class="pull-right">
 	            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
 	            <span class="date-holder">@{{passedDatePretty created_at}}</span>
+	            </span>
+	            <br/>
 	            </p>
 	          </td>
 	          <td style="width:10%;">
@@ -52,6 +55,14 @@
 	    </div>
 	<!--end item--> 
 	@{{/dashLeftArrayData}} 
+	@{{else}}
+		<div style="padding-left:20px;padding-top:10px;padding-right:20px;color:white;">
+			<p class="small">
+				<span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+				This area holds saved taxlots. To save a taxlot, select one from the map on the right, click 'full information' and then select the 'options' menu.
+			</p>
+		</div>
+	@{{/if}}
 </script>
 
 <script id="dash-right-template" type="text/x-handlebars-template">
@@ -124,8 +135,6 @@
 			<div class="dash-expanded-info-title pull-left" style="width:50%;">
 				<h4 class="just-custom-font-header white-class" style="margin-top:0px;">@{{ORIGINALSOURCE}}</h4>
 			</div>
-			<span class="glyphicon glyphicon-print pull-right" style="margin-right:3px;color:white;" id="print-left-dash" aria-hidden="true"></span>
-			<span class="glyphicon glyphicon-envelope pull-right" style="margin-right:10px;color:white;" aria-hidden="true"></span>
             <div style="clear:both;"></div>
             <table style="width:100%;">
             	<tr>

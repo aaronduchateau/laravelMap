@@ -139,7 +139,7 @@ window.g = {
   		window.g.generalLoaderHtml = $("#general-loader").html();
 	},
 	highlightLastItem: function(targetClassName, event, activeClass){
-        $( targetClassName ).removeClass('active-item-right');
+        $( targetClassName ).removeClass( activeClass );
         $(event.target).closest( targetClassName ).addClass( activeClass );
     },
     scrollItemToTop: function(nameOfScrollBinding, scrollToMe ){
@@ -155,8 +155,8 @@ window.g = {
     communiqueClose: function(){
     	setTimeout(function(){ 
 	    	$( "#communique" ).animate({
-	          	top: "-50"
-	        	}, 800, function() {
+	          	top: "-35"
+	        	}, 1100, function() {
 	        });
     	}, 1400);
     },

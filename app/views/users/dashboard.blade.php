@@ -1,7 +1,7 @@
 <!--top menu goes here-->
 <div class="options-area" style="margin-left:5px;margin-right:10px;">
   <h5 style="color:white;" class="left-result-heading dash-heading-4 pull-left">
-    &nbsp;&nbsp;&nbsp;Good News! 250 gigs near your location (97401)
+    &nbsp;&nbsp;&nbsp;Welcome! you are viewing taxlot data for <span id="county-label"></span>, <span id="state-label"></span>
   </h5>
   <div class="pull-left left-action-buttons" style="display:none;">
     <h3 class="left-action-buttons-title"><input type="checkbox" value="1" checked></h3>
@@ -162,8 +162,6 @@
 <script src="{{ URL::asset('dist/js/handlebars-v2.0.0.js') }}"></script>
 <script src="{{ URL::asset('dist/js/jQuery.print.js') }}"></script>
 <script src="{{ URL::asset('dist/js/moment.js') }}"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="{{ URL::asset('assets/js/ie10-viewport-bug-workaround.js') }}"></script>
 
 <script src="{{ URL::asset('assets/jsModels/avatarDashboardModel.js') }}"></script>
 <script src="{{ URL::asset('assets/jsModels/dashModel.js') }}"></script>
@@ -204,6 +202,8 @@
     window.g.mapConfig.userId = {{Auth::user()->id}};
 
     console.log(window.g.mapConfig);
+    $('#county-label').text(window.g.mapConfig.countyName);
+    $('#state-label').text(window.g.mapConfig.stateAb);
     $('#latMap').val(window.g.mapConfig.startLat);
     $('#lngMap').val(window.g.mapConfig.startLng);
 
@@ -266,7 +266,7 @@
         globalStyles : false, // Use Global styles
         mediaPrint : false, // Add link with attrbute media=print
         //stylesheet : "http://fonts.googleapis.com/css?family=Inconsolata", //Custom stylesheet
-        iframe : false, //Print in a hidden iframe
+        iframe : true, //Print in a hidden iframe
         noPrintSelector : ".avoid-this"
         //, // Don't print this
         //append : "custom tip can go here", // Add this on top
@@ -343,10 +343,14 @@
     
 
     //add map marker and pan to saved taxlot
-    $(document).on('click', '.left-saved-open', function() {
+    $(document).on('click', '.left-saved-open', function(event) {
+       window.g.highlightLastItem('.left-saved-open', event, 'active-item-right');
        var lat = $(event.target).closest('div').attr('data-result-lat');
        var lng = $(event.target).closest('div').attr('data-result-lng');
+       var owner = $(event.target).closest('div').attr('data-result-owner');
+       window.g.communiqueOpen('Adding marker to taxlot owned by ' + owner);
        window.gmd.interactMap.panToPosition(lat, lng);
+       window.g.communiqueClose();
     });
 
 
@@ -405,13 +409,11 @@
        navigator.geolocation.getCurrentPosition(myLocationCallback);
     });
 
+    //this manages lat lng results on the right
     $(document).on('click', '.single-right-item', function(event) {
        var latMap = $(event.target).closest('table').attr('data-attr-lat');
        var lngMap = $(event.target).closest('table').attr('data-attr-lng');
-       $( ".single-right-item" ).each(function() {
-         $( this ).removeClass('active-item-right');
-       });
-       $(event.target).closest('.single-right-item').addClass('active-item-right');
+       window.g.highlightLastItem('.single-right-item', event, 'active-item-right');
        window.gmd.interactMap.panToPosition( latMap, lngMap );
       
     });

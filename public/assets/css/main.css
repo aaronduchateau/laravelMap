@@ -318,14 +318,14 @@ border-bottom: 0px solid #e5e5e5;
 /*communique css*/
 #communique {
     position: fixed;
-    top: -50px;
+    top: -35px;
     background-color: #0D6A92;
-    height:50px;
+    height:28px;
     z-index:1500;
-    opacity:0.8;
+    opacity:0.9;
 }
 
-#communique-text {
+#communique-text-holder {
     text-align: center;
     color: white;
     margin-top:15px;
