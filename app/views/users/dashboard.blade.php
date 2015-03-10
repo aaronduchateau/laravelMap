@@ -4,7 +4,9 @@
     &nbsp;&nbsp;&nbsp;Welcome! you are viewing taxlot data for <span id="county-label"></span>, <span id="state-label"></span>
   </h5>
   <div class="pull-left left-action-buttons" style="display:none;">
-    <h3 class="left-action-buttons-title"><input type="checkbox" value="1" checked></h3>
+    <h3 class="left-action-buttons-title">
+      <input type="checkbox" class="letter-toggle" value="1" checked>
+    </h3>
     <a class="btn btn-primary pull-right back" style="margin-right: 20px;">
       <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 
     </a>
@@ -200,6 +202,7 @@
     window.g.mapConfig = {{$mapCountyData}};
     window.g.mapConfig = window.g.mapConfig[0];
     window.g.mapConfig.userId = {{Auth::user()->id}};
+    window.g.mapConfig.accountOwnerName = '{{Auth::user()->firstname}} {{Auth::user()->lastname}}';
 
     console.log(window.g.mapConfig);
     $('#county-label').text(window.g.mapConfig.countyName);
@@ -274,6 +277,21 @@
       });
     });
 
+    function toggleLetter(){
+      if ( $('.letter-toggle').prop('checked') ){
+        $('.detail').hide();
+        $('.letter').show();
+      } else {
+        $('.letter').hide();
+        $('.detail').show();
+      }
+    }
+
+    //toggle letter view vs detail view
+    $(document).on('change', '.letter-toggle', function(event) {
+      toggleLetter();
+    });
+
     $(document).on('click', '.left-open', function(event) {
         
         $('#config').hide();
@@ -301,7 +319,7 @@
           //trigger Nested Map
           window.gmd.interactMap.nestedMap();
           //this loads the work description for the expanded view
-          source   = $("#job-description").html();
+          /*source   = $("#job-description").html();
           leftDashTemplate = Handlebars.compile(source);
           templateResult = leftDashTemplate(window.avatar);
           $('.dash-left-full-margin').append(templateResult);
@@ -313,7 +331,9 @@
           templateResult = leftDashTemplate(window.avatar);
           $('.dash-left-full-margin').append(templateResult);
           $('#image-thumb-slider').css("max-width", (window.g.halfWidth() - 80) + "px");
+          */
           $('.dash-left-full-margin').slideDown('slow');
+          toggleLetter();
         });
     });
     
@@ -337,7 +357,12 @@
 
     //save taxlot data
     $(document).on('click', '#save-me', function() {
-       window.dashModel.saveTaxlot(afterSaveTaxlot);
+      window.dashModel.saveTaxlot(afterSaveTaxlot);
+      window.g.communiqueOpen('Taxlot saved! click the back button to see it in your left hand pane');
+      setTimeout(function(){ 
+         window.g.communiqueClose();
+      }, 4000);
+       
     });
 
     
@@ -350,7 +375,9 @@
        var owner = $(event.target).closest('div').attr('data-result-owner');
        window.g.communiqueOpen('Adding marker to taxlot owned by ' + owner);
        window.gmd.interactMap.panToPosition(lat, lng);
-       window.g.communiqueClose();
+       setTimeout(function(){ 
+         window.g.communiqueClose();
+       }, 4000);
     });
 
 
@@ -417,6 +444,7 @@
        window.gmd.interactMap.panToPosition( latMap, lngMap );
       
     });
+
 
     //set up our checkbox slider for letter view vs detail view
     $("input[type=checkbox]").switchButton({

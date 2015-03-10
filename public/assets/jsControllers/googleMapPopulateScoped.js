@@ -70,7 +70,10 @@ window.gmd = {
 		  });
 
 		  layer.setMap(window.nestedMap);
-		  google.maps.event.trigger(window.nestedMap, 'resize');
+		  //sometimes our map kinks up on slide down
+		  setTimeout(function(){ 
+		  	google.maps.event.trigger(window.nestedMap, 'resize');
+		  }, 4000);
 		
 
 		}
@@ -122,6 +125,16 @@ window.gmd = {
 			});
 		},1300);
 
+		function sanatizeValue(value){
+			if (value){
+		    	var currencyParse =  value.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+		    	var splitNum = currencyParse.split(".");
+		    	return splitNum[0];
+			} else {
+				return 'EMPTY';
+			}
+		}
+
 	    function populateMap(){
 		  layer = new google.maps.FusionTablesLayer({
 		    query: {
@@ -162,21 +175,24 @@ window.gmd = {
 		    	var acreage = 'unavailable';
 		    }
 		    if (row['totalValue']){
-		    	var totalValue = row['totalValue'];
-		    } else {
-		    	var totalValue= 'unavailable';
+		    	var totalValue = sanatizeValue(row['totalValue']);
 		    }
+		    // else {
+		    //	var totalValue= 'unavailable';
+		    //}
 
 		    e.infoWindowHtml = "<div style='width:300px;'><h5>Fee Owner: " + feeOwner + "</h5>";
 		    e.infoWindowHtml += "<hr/><a href='javascript:void(0);' data-result-index='288' class='btn btn-primary pull-right left-open'>Full Information</a>";
       		e.infoWindowHtml += "<div style='pull-left'><b>Acreage: </b>" + acreage + "<br/>";
-      		e.infoWindowHtml += "<b>Value: </b>$" + totalValue + "</div><br/><br/><div style='clear:both;'></div>";
+      		e.infoWindowHtml += "<b>Total Value: </b>$" + totalValue + "</div><br/><br/><div style='clear:both;'></div>";
       		e.infoWindowHtml += "</div>";
 		    
 		    
 		    window.g.mapRowData = row;
 		    window.g.mapRowData.lat = window.infoWindowLat;
 		    window.g.mapRowData.lng = window.infoWindowLng;
+		    window.g.mapRowData.accountOwnerName = window.g.mapConfig.accountOwnerName;
+		    window.g.mapRowData.countyName = window.g.mapConfig.countyName;
 		    console.log('window.g.mapRowData');
 		    console.log(window.g.mapRowData);
 		   
