@@ -89,7 +89,7 @@ window.translations = {
 				propertyClassDescription: o.propcldes,
 				stateClassCodeOrBuildCode: o.statecl,
 				stateClassDescription: o.statecldes,
-				acreage: null,
+				acreage: o.mapacres,
 				assesedtaxableValue: o.assdtotval,
 				assesedImpTaxable: null,
 				assesedLandTaxable: null,

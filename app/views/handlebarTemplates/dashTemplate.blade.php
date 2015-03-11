@@ -48,7 +48,8 @@
 	            </p>
 	          </td>
 	          <td style="width:10%;">
-	          <span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true" style="color:white;margin-right:10px;"></span>
+	          <span class="glyphicon glyphicon-chevron-right pull-right arrow-hide" aria-hidden="true" style="color:white;margin-right:10px;"></span>
+	          <span class="glyphicon glyphicon-trash pull-right trash-hide" data-result-index="@{{id}}" aria-hidden="true" style="color:white;margin-right:10px;"></span>
 	          </td>
 	        </tr>
 	      </table>

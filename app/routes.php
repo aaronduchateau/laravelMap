@@ -57,7 +57,7 @@ Route::post('saveCountySpecificRecord',array('before'=>'csrf','uses'=>function()
         $s->active = true;
         //if success
         if($s->save()){
-            return 1;
+            return Response::json(array('success' => true, 'last_insert_id' => $s->id), 200);
         }
         //if not success
         else{

@@ -235,9 +235,9 @@ border-bottom: 0px solid #e5e5e5;
 .left-action-buttons-title{
 	width: 50%;
 	float: left;
-	margin-top: 5px;
+	margin-top: 8px;
 	color: white;
-	margin-left: 10px;
+	margin-left: 12px;
 }
 
 .custom-input {
@@ -267,6 +267,10 @@ border-bottom: 0px solid #e5e5e5;
     height:250px;
     width:500px;
     background-color:#337ab7;
+}
+
+.trash-hide {
+	display:none;
 }
 
 /*switch button css*/
@@ -319,16 +323,15 @@ border-bottom: 0px solid #e5e5e5;
 #communique {
     position: fixed;
     top: -35px;
-    background-color: #0D6A92;
+    background-color: #337ab7;
     height:28px;
     z-index:1500;
-    opacity:0.98;
 }
 
 #communique-text-holder {
     text-align: center;
     color: white;
-    margin-top:15px;
+    margin-top:5px;
 }
 
 .letter {

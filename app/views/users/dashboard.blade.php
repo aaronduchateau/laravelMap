@@ -4,9 +4,9 @@
     &nbsp;&nbsp;&nbsp;Welcome! you are viewing taxlot data for <span id="county-label"></span>, <span id="state-label"></span>
   </h5>
   <div class="pull-left left-action-buttons" style="display:none;">
-    <h3 class="left-action-buttons-title">
+    <span class="left-action-buttons-title">
       <input type="checkbox" class="letter-toggle" value="1" checked>
-    </h3>
+    </span>
     <a class="btn btn-primary pull-right back" style="margin-right: 20px;">
       <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 
     </a>
@@ -370,10 +370,11 @@
     //add map marker and pan to saved taxlot
     $(document).on('click', '.left-saved-open', function(event) {
        window.g.highlightLastItem('.left-saved-open', event, 'active-item-right');
+       window.g.toggleClickedItem('.arrow-hide', event, '.trash-hide');
        var lat = $(event.target).closest('div').attr('data-result-lat');
        var lng = $(event.target).closest('div').attr('data-result-lng');
        var owner = $(event.target).closest('div').attr('data-result-owner');
-       window.g.communiqueOpen('Adding marker to taxlot owned by ' + owner);
+       window.g.communiqueOpen('Adding marker, and centering map, for taxlot owned by ' + owner);
        window.gmd.interactMap.panToPosition(lat, lng);
        setTimeout(function(){ 
          window.g.communiqueClose();
@@ -448,9 +449,9 @@
 
     //set up our checkbox slider for letter view vs detail view
     $("input[type=checkbox]").switchButton({
-      width: 60,
-      height: 22,
-      button_width: 30,
+      width: 30,
+      height: 15,
+      button_width: 15,
       on_label: 'Letter',
       off_label: 'Detail',
       checked: false

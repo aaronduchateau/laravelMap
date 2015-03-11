@@ -142,6 +142,12 @@ window.g = {
         $( targetClassName ).removeClass( activeClass );
         $(event.target).closest( targetClassName ).addClass( activeClass );
     },
+    toggleClickedItem: function(defaultClassName, event, activeClass){
+        $( activeClass ).hide();
+        $( defaultClassName ).show();
+        $(event.target).closest('div').find( defaultClassName ).hide();
+        $(event.target).closest('div').find( activeClass ).show();
+    },
     scrollItemToTop: function(nameOfScrollBinding, scrollToMe ){
     	$( nameOfScrollBinding ).mCustomScrollbar("scrollTo", scrollToMe );
     },

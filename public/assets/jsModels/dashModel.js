@@ -17,6 +17,7 @@ window.dashModel = {
             data : dataSent,
             success:function(data){
             	console.log(data);
+            	dataSent.id = data.last_insert_id;
             	callback(dataSent);
                 //callback(data);
             }
