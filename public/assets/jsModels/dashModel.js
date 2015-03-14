@@ -35,5 +35,24 @@ window.dashModel = {
             dataType: "json"
         });
 
+	},
+	unsetSavedLeft: function(unsetId, userId, callback){
+		var dataSent = {
+			unsetId: unsetId, 
+			userId: userId
+		};
+		$.ajaxSetup({
+		   headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+		});
+		$.ajax({
+			type: "POST",
+            url: window.g.jsBaseUrl() + 'unsetSavedLeft',
+            data : dataSent,
+            success:function(data){
+            	console.log(data);
+            	callback(data);
+                //callback(data);
+            }
+        });
 	}
 };

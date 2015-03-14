@@ -293,7 +293,6 @@
     });
 
     $(document).on('click', '.left-open', function(event) {
-        
         $('#config').hide();
         $('.back').show();
         $('.back-right').hide()
@@ -365,10 +364,26 @@
        
     });
 
-    
+    function removeSavedItemCallback(data){
+      console.log(data);
+      window.g.communiqueClose();
+    }
+
+    function removeSavedItem(item){
+      var removeIndex = item.attr('data-result-index');
+      var userIndex = window.g.mapConfig.userId;
+      window.dashModel.unsetSavedLeft(removeIndex, userIndex, removeSavedItemCallback);
+      window.g.communiqueOpen('delete called');
+    }
 
     //add map marker and pan to saved taxlot
     $(document).on('click', '.left-saved-open', function(event) {
+       //check for remove click
+       if( $(event.target).hasClass('trash-hide') ){
+          removeSavedItem($(event.target));
+          return false;
+       }
+
        window.g.highlightLastItem('.left-saved-open', event, 'active-item-right');
        window.g.toggleClickedItem('.arrow-hide', event, '.trash-hide');
        var lat = $(event.target).closest('div').attr('data-result-lat');

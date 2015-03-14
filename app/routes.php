@@ -68,4 +68,25 @@ Route::post('saveCountySpecificRecord',array('before'=>'csrf','uses'=>function()
 
 }));
 
+Route::post('unsetSavedLeft',array('before'=>'csrf','uses'=>function(){
+    $data = Input::all();
+    if(Request::ajax())
+    {	
+    	$savedTaxLots = SavedTaxLots::find($data['unsetId']);
+
+		$savedTaxLots->active = 'false';
+		//if success
+        if($savedTaxLots->save()){
+            return Response::json(array('success' => true), 200);
+        }
+        //if not success
+        else{
+            return 0;
+        }
+    }
+
+}));
+
+
+
 

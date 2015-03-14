@@ -3,7 +3,7 @@ class UsersController extends BaseController {
 	protected $layout = "layouts.main";
 	public function __construct() {
 		$this->beforeFilter('csrf', array('on'=>'post'));
-		$this->beforeFilter('auth', array('only'=>array('getDashboard')));
+		$this->beforeFilter('auth', array('only'=>array('getDashboard','getMenu')));
 		$this->routeParamters = Route::current()->parameters();
 	}
 	public function getRegister() {
