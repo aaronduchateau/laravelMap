@@ -373,7 +373,8 @@
       var removeIndex = item.attr('data-result-index');
       var userIndex = window.g.mapConfig.userId;
       window.dashModel.unsetSavedLeft(removeIndex, userIndex, removeSavedItemCallback);
-      window.g.communiqueOpen('delete called');
+      window.g.communiqueOpen('removing this item from your saved list...');
+      item.closest('div').slideUp();
     }
 
     //add map marker and pan to saved taxlot
