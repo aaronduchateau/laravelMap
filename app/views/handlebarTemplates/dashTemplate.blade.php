@@ -139,7 +139,7 @@
             <div style="clear:both;"></div>
             <div class="custom-well-info letter" contenteditable="true" style="padding-top:10px;padding-left:10px;padding-right:10px;padding-bottom: 10px;border-radius: 4px;">
 	            Dear @{{emptyCheck ownerName.value}}, <br/>
-	            my name is @{{emptyCheck accountOwnerName}} and I'm interested in your property in @{{emptyCheck countyName}} (please find the enclosed map). If you're interested in selling please let me know. My number is 503-513-0628.
+	            my name is @{{emptyCheck accountOwnerName}} and I'm interested in your property in @{{emptyCheck countyName}} (please find the enclosed map). If you're interested in selling please let me know. My number is @{{emptyCheck accountOwnerPhone}}.
 	            <br/><br/>
 				Thank you,
 				<br/>

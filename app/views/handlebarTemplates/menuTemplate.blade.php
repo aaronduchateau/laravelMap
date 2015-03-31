@@ -49,7 +49,7 @@
 
 		The Recipient hereto desires to participate in discussions regarding proprietary concepts; 
 
-		information and designs related to Helix Development Group and related information (the 
+		information and designs related to Aaron DuChateau and related information (the 
 
 		“Transaction”). During these discussions, Disclosing Party may share certain proprietary 
 

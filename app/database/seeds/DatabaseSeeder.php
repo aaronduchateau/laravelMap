@@ -28,13 +28,14 @@ class userSeeder extends Seeder {
     	//DB::table('counties')->delete();
     	
     	//Counties::create(array());
-        
+        DB::table('users')->delete();
         DB::table('users')->insert(
         array(
-          array('firstname' => 'Aaron', 'lastname' => 'duchateau', 'email' => 'chateauconcept@gmail.com', 'password' => Hash::make('asdfasdf') ),
-      		array('firstname' => 'Kent', 'lastname' => 'lastname', 'email' => 'alpinepropertiesllc@gmail.com', 'password' => Hash::make('test123123') ),
-      		array('firstname' => 'Andrew', 'lastname' => 'Cook', 'email' => 'andrewkcook@gmail.com', 'password' => Hash::make('test123123') )
-		));
+          array('firstname' => 'Aaron', 'lastname' => 'duchateau', 'phone' => '541-653-0973', 'email' => 'chateauconcept@gmail.com', 'password' => Hash::make('asdfasdf') ),
+      		array('firstname' => 'Kent', 'lastname' => 'lastname', 'phone' => '541-653-0973', 'email' => 'alpinepropertiesllc@gmail.com', 'password' => Hash::make('test123123') ),
+      		array('firstname' => 'Andrew', 'lastname' => 'Cook', 'phone' => '541-653-0973', 'email' => 'andrewkcook@gmail.com', 'password' => Hash::make('test123123') )
+		    ));
+        $this->command->info('users seeded INSIDE called!');
     }
 
 }
@@ -46,7 +47,7 @@ class countySeeder extends Seeder {
     	//DB::table('counties')->delete();
     	
     	//Counties::create(array());
-        
+        DB::table('counties')->delete();
         DB::table('counties')->insert(
         array(
         	array('countyName' => 'Baker County', 
@@ -410,6 +411,7 @@ class countySeeder extends Seeder {
       			  'active' => false)
 
 		));
+        $this->command->info('counties seeded INSIDE called!');
     }
 
 }

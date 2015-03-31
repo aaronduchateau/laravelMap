@@ -10,14 +10,21 @@
     <a class="btn btn-primary pull-right back" style="margin-right: 20px;">
       <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> 
     </a>
-    <div class="dropdown pull-right">
-      <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" style="margin-right:10px;">
+    <div class="dropdown pull-right" style="margin-right:20px;">
+      <a class="btn btn-primary" style="" id="print-me">
+        <span class="glyphicon glyphicon-print" aria-hidden="true"></span> 
+      </a>
+      <a class="btn btn-primary" style="" id="save-me">
+        <span class="glyphicon glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> 
+      </a>
+      
+      <!--<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" style="margin-right:10px;">
         More options <span class="caret"></span>
       </button>
       <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
         <li role="presentation"><a id="save-me" role="menuitem" tabindex="-1" href="#">Save this taxlot</a></li>
         <li role="presentation"><a id="print-me" role="menuitem" tabindex="-1" href="#">Print this view</a></li>
-      </ul>
+      </ul>-->
     </div>
     <!--<a href="javascript:void(0);" id="review-scroll" class="btn btn-primary pull-right">
       <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -203,6 +210,7 @@
     window.g.mapConfig = window.g.mapConfig[0];
     window.g.mapConfig.userId = {{Auth::user()->id}};
     window.g.mapConfig.accountOwnerName = '{{Auth::user()->firstname}} {{Auth::user()->lastname}}';
+    window.g.mapConfig.accountOwnerPhone = '{{Auth::user()->phone}}';
 
     console.log(window.g.mapConfig);
     $('#county-label').text(window.g.mapConfig.countyName);

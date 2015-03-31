@@ -192,6 +192,7 @@ window.gmd = {
 		    window.g.mapRowData.lat = window.infoWindowLat;
 		    window.g.mapRowData.lng = window.infoWindowLng;
 		    window.g.mapRowData.accountOwnerName = window.g.mapConfig.accountOwnerName;
+		    window.g.mapRowData.accountOwnerPhone = window.g.mapConfig.accountOwnerPhone;
 		    window.g.mapRowData.countyName = window.g.mapConfig.countyName;
 		    console.log('window.g.mapRowData');
 		    console.log(window.g.mapRowData);

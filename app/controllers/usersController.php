@@ -16,6 +16,7 @@ class UsersController extends BaseController {
 			$user->firstname = Input::get('firstname');
 			$user->lastname = Input::get('lastname');
 			$user->email = Input::get('email');
+			$user->phone = Input::get('email');
 			$user->password = Hash::make(Input::get('password'));
 			$user->save();
 			return Redirect::to('users/login')->with('message', 'Thanks for registering!');
@@ -44,13 +45,18 @@ class UsersController extends BaseController {
 		}
 	}
 	public function getDashboard() {
-		//var $myUrl = URL::current();
+		//bring data into scope for display
 		$oregonSegment = Request::segment(3);
 		$countySegment = Request::segment(4);
 		$countyResult = DB::table('counties')->where('countyNameConcat', '=', $countySegment)->where('stateAb', '=', $oregonSegment)->get();
-    
     	$withResult = json_encode($countyResult);
-		//var $params = Route::current()->parameters();
+		
+		//if the user has viewed this page they have agreed to the user end agreement
+		$user = Auth::user();
+        $user->hasSeenContract = 'agreed';
+        $user->save();
+
+        //return the view
 		$this->layout->content = View::make('users.dashboard')->with('mapCountyData',$withResult);
 	}
 	public function getMenu() {
