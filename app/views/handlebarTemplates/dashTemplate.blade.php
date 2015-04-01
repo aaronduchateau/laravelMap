@@ -78,7 +78,7 @@
               <td>
                 <div style='margin-top:10px;margin-bottom:10px;'>
                 <!--<span class="heading"></span> - -->
-                <span class="body"><b>lat:</b> @{{mapLat}} &nbsp;&nbsp;&nbsp;<b>lat:</b> @{{mapLng}}</span>
+                <span class="body"><b>lat:</b> @{{mapLat}} &nbsp;&nbsp;&nbsp;<b>lng:</b> @{{mapLng}}</span>
                 <p class="small">
                 <span class="pull-left">
                 <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
@@ -277,7 +277,7 @@
             				<br/>
             				<h5>
             					<span class="label label-primary darker-blue-backgroud-class">
-            						$@{{emptyCheck taxLot.value}} 
+            						@{{emptyCheck taxLot.value}} 
         						</span>
     						</h5>
     					</div>

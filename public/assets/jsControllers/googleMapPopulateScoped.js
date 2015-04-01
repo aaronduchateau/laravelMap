@@ -51,6 +51,10 @@ window.gmd = {
 			  mapOptions);
 			//console.log(customAccount);
 			//console.log('ddd', window.g.mapRowData.queryVal);
+			console.log('column name');
+			console.log(window.g.mapConfig.nestedMapColumnName);
+			console.log('query value');
+			console.log(window.g.mapRowData.queryVal.value);
 			var customAccountString = window.g.mapConfig.nestedMapColumnName + ' = ' + window.g.mapRowData.queryVal.value;
 			var layer = new google.maps.FusionTablesLayer({
 		    query: {

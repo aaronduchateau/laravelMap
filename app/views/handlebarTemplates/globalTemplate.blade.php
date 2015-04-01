@@ -16,7 +16,7 @@
 </script>
 <script id="general-loader" type="text/x-handlebars-template">
 <h4 class="white-class" style="width:300px;text-align:center;margin-top:50px;">
-  <img src="{{ URL::asset('images/loader.gif')}}" style="width:32px;height:32px;">
+  <img src="{{ URL::asset('images/loader.GIF')}}" style="width:32px;height:32px;">
   Loading Content...
 </h4>
 </script>

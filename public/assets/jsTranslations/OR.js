@@ -1,5 +1,66 @@
 window.translations = {
 	held: {},
+	DouglasCounty: {
+		translate: function(o) {
+			if (o.CSZ) {
+				var commaSplit = o.CSZ.value.split(",");
+				var CITY = commaSplit[0];
+				var stateZip = commaSplit[1];
+				var stateZipSplit = stateZip.split(" ");
+
+				var STATE = stateZipSplit[0];
+				var ZIP = stateZipSplit[1];
+				var cityObj = {value: CITY};
+				var stateObj = {value: STATE};
+				var zipObj = {value: ZIP};
+
+			} else {
+				var CITY = null, STATE = null, ZIP = null; 
+			}
+			//query on maptaxlot, queryVal holds actual query val
+			var tempJson = {
+				mapNumber: null,
+				account: o.PROP_ID,
+				taxcode: null,
+				inCareOf: null,
+				ownerAddress1: o.ADDR1,
+				ownerAddress2: o.ADDR2,
+				ownerAddress3: o.ADDR3,
+				ownerCity: cityObj,
+				ownerState: stateObj,
+				ownerZip: zipObj,
+				numberOwners: null,
+				ownerName: o.NAME,
+				impValue: o.TOTAL_IMP,
+				landValue: o.TOTAL_LAND,
+				totalValue: o.TOTAL_MARK.value,
+				yearBuilt: o.INST_NO,
+				taxLot: o.TAXID,
+				buildingType: null,
+				exemptDescription: null,
+				propertyClassCode: o.COUNTY_PRO,
+				propertyClassDescription: null,
+				stateClassCodeOrBuildCode: null,
+				stateClassDescription: null,
+				acreage: o.ACREAGE,
+				assesedtaxableValue: o.ASSD_VALUE,
+				assesedImpTaxable: null,
+				assesedLandTaxable: null,
+				mapTaxLotNumber: null,
+				zoning: o.CODE_AREA,
+				landUseNumber: null,
+				planDescription: null,
+				fireDistrict: null,
+				schoolDistrict: null,
+				nieghborHood: o.NBHD_CODE,
+				queryVal: o.ID
+			};
+
+			window.translations.held = tempJson;
+			return tempJson;
+
+		}
+	},
 	JacksonCounty: {
 		translate: function(o) {
 			if (o.ASSESIMP && o.ASSESLAND){
