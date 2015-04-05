@@ -32,8 +32,9 @@ class userSeeder extends Seeder {
         DB::table('users')->insert(
         array(
           array('firstname' => 'Aaron', 'lastname' => 'duchateau', 'phone' => '541-653-0973', 'email' => 'chateauconcept@gmail.com', 'password' => Hash::make('asdfasdf') ),
-      		array('firstname' => 'Kent', 'lastname' => 'lastname', 'phone' => '541-653-0973', 'email' => 'alpinepropertiesllc@gmail.com', 'password' => Hash::make('test123123') ),
-      		array('firstname' => 'Andrew', 'lastname' => 'Cook', 'phone' => '541-653-0973', 'email' => 'andrewkcook@gmail.com', 'password' => Hash::make('test123123') )
+      		array('firstname' => 'Nash', 'lastname' => 'Gambee', 'phone' => '541-513-0628', 'email' => 'ibgambee@yahoo.com', 'password' => Hash::make('test123123') ),
+      		array('firstname' => 'Kent', 'lastname' => 'Gambee', 'phone' => '541-288-3315', 'email' => 'alpinepropertiesllc@gmail.com', 'password' => Hash::make('licorice0221') ),
+          array('firstname' => 'Andrew', 'lastname' => 'Cook', 'phone' => '541-729-1228', 'email' => 'andrewkcook@gmail.com', 'password' => Hash::make('test123123') )
 		    ));
         $this->command->info('users seeded INSIDE called!');
     }
