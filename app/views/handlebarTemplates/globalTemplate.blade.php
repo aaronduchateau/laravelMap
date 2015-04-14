@@ -6,6 +6,7 @@
           <ul class="nav nav-pills pull-right" style="margin-top:-12px;">
             <li role="presentation" class="@{{menu.class}}"><a href="@{{menu.link}}">Menu</a></li>
             <li role="presentation" class="@{{dash.class}}"><a href="@{{dash.link}}">Dashboard</a></li>
+            <li role="presentation"><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal">Contact</a></li>
             <li role="presentation"><a href="{{ URL::asset('/users/logout')}}">Sign out (@{{emailHeld}})</a></li>
           </ul>
         </nav>
